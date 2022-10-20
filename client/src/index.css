@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root{
+    --main-bg: #0e0e14;
+    --err-red: #e36464; 
+}
+
+html{
+    font-size: 100%;
+    box-sizing: border-box;
+}
+*, *::before, *::after{
+    box-sizing: inherit;
+}
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1,h2,h3,h4,h5,h6,p{
+    margin: 0;
+}
+
+/* CreateRes page */
+.main__create{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    position: relative;
+    background-color: var(--main-bg);
+    /* color: lightgray; */
+    color: lightcyan;
+}
+.create__login{
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 1.25rem 32px 0 0;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}
+.create__loginLink{
+    text-decoration: underline wavy lightcyan 2px;
+    text-underline-offset: 8px;
+    color: lightcyan;
+    margin-left: 3px;
+    transition: all 200ms ease-in-out;
+}
+.create__loginLink:hover{
+    text-shadow: 4px 4px 8px white;
+}
+.create__title{
+    position: fixed;
+    top: 14%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 57px;
+    width: 531px;
+}
+.create__form{
+    display: flex;
+    width: 45%;
+    column-gap: 12px;
+}
+.create__inputBx{
+    position: relative;
+    width: 100%;
+}
+.create__input{
+    width: 100%;
+    height: 100%;
+    padding: 0 12px 0 22px;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    background-color: lightcyan;
+}
+.create__input::placeholder{
+    opacity: 0;
+}
+.create__label{
+    position: absolute;
+    font-size: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 1.5rem;
+    pointer-events: none;
+    color: black;
+    font-size: 20px;
+    transition: font-size 200ms ease-in-out, top 200ms ease-in-out, color 150ms 50ms ease-in-out;
+}
+.create__input:focus + .create__label,
+.create__input:not(:placeholder-shown) + .create__label{
+    top: -22px;
+    font-size: 18px;
+    color: lightcyan;
+}
+.create__enterBtn{
+    padding: 24px 54px;
+    font-size: 20px;
+    border: 0;
+    outline: 0;
+    left: 0;
+    bottom: 0;
+    background-color: lightcyan;
+    cursor: pointer;
+    position: relative;
+    transition: left 150ms ease-in-out, bottom 150ms ease-in-out;
+}
+.create__enterBtn:hover{
+    left: 4px;
+    bottom: 4px;
+}
+.create__enterBtn::before{
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    bottom: 0px;
+    background-color: transparent;
+    border: 2px solid lightcyan;
+    transition: left 150ms ease-in-out, bottom 150ms ease-in-out;
+    pointer-events: none;
+
+}
+.create__enterBtn:hover::before{
+    left: 8px;
+    bottom: 8px;
+}
+.create__error{
+    color: var(--err-red);
+    margin: 8px 0 0 4px;
+    font-size: 17px;
+}
+
+@media only screen and (max-width: 68em){
+    .create__form{
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 44em){
+    .create__title{
+        font-size: 36px;
+        line-height: 52px;
+    }
+    .create__form{
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 36em){
+    .main__create{
+        padding: 0 20px;
+    }
+    .create__login{
+        padding: 1rem 20px 0 0;
+        text-align: center;
+        font-size: 16px;
+    }
+    .create__loginLink{
+        margin-left: 0;
+    }
+    .create__title{
+        width: auto;
+        padding-inline: 28px;
+    }
+    .create__form{
+        width: 100%;
+    }
+    .create__input{
+        padding: 0 8px 0 10px;
+        font-size: 18px;
+    }
+    .create__label{
+        font-size: 17px;
+        left: 10px;
+    }
+    .create__input:focus + .create__label,
+    .create__input:not(:placeholder-shown) + .create__label{
+        font-size: 16px;
+    }
+    .create__enterBtn{
+        padding: 20px 34px;
+        font-size: 19px;
+    }
+}
