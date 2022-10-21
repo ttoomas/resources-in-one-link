@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useRef } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import eyeOn from "../imgs/eye.png";
 import axios from "axios";
 
@@ -8,6 +8,7 @@ const CreateRes = () => {
   const resName = useRef(null);
   const resPassword = useRef(null);
   const [err, setErr] = useState([]);
+  const navigate = useNavigate();
 
   const handlePassword = () => {
     const resNameVal = resName.current.value;
@@ -26,6 +27,14 @@ const CreateRes = () => {
 
       setTimeout(() => {
         createInputBxPassword.querySelector('.create__input').focus();
+
+        createInputBxName.style.left = "0";
+        createInputBxName.style.visibility = "hidden";
+        createInputBxName.style.opacity = "0";
+
+        createInputBxPassword.style.left = "50%";
+        createInputBxPassword.style.visibility = "visible";
+        createInputBxPassword.style.opacity = "1";
       }, 1001);
     }
   }
@@ -41,13 +50,38 @@ const CreateRes = () => {
       setErr([]);
 
       async function createResAxios(){
-        const response = await axios({
-          method: "post",
-          url: "/createres",
-          data: {"resName": resNameVal, "resPassword": resPasswordVal}
-        });
-  
-        console.log(response);
+        try{
+          await axios({
+            method: "post",
+            url: "/createres",
+            data: {"resName": resNameVal, "resPassword": resPasswordVal}
+          });
+
+          navigate('/resources');
+        }
+        catch(err){
+          console.log(err.response.data);
+
+          const createInputBxName = document.querySelector('.create__form.name');
+          const createInputBxPassword = document.querySelector('.create__form.password');
+
+          createInputBxPassword.style.animation = "createFormChangeName 500ms ease-in-out forwards";
+          createInputBxName.style.animation = "createFormChangePassword 500ms 500ms ease-in-out forwards";
+
+          setTimeout(() => {
+            createInputBxName.querySelector('.create__input').focus();
+
+            createInputBxName.style.left = "";
+            createInputBxName.style.visibility = "";
+            createInputBxName.style.opacity = "";
+
+            createInputBxPassword.style.left = "";
+            createInputBxPassword.style.visibility = "";
+            createInputBxPassword.style.opacity = "";
+          }, 1001);
+
+          setErr({"resName": err.response.data});
+        }
       }
 
       createResAxios();
