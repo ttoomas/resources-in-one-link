@@ -32,7 +32,6 @@ h1,h2,h3,h4,h5,h6,p{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     height: 100vh;
     position: relative;
     background-color: var(--main-bg);
@@ -40,9 +39,7 @@ h1,h2,h3,h4,h5,h6,p{
     color: lightcyan;
 }
 .create__login{
-    position: fixed;
-    top: 0;
-    right: 0;
+    align-self: flex-end;
     padding: 1.25rem 32px 0 0;
     font-size: 18px;
     letter-spacing: 0.5px;
@@ -58,19 +55,82 @@ h1,h2,h3,h4,h5,h6,p{
     text-shadow: 4px 4px 8px white;
 }
 .create__title{
-    position: fixed;
-    top: 14%;
     text-align: center;
     font-weight: 700;
     font-size: 44px;
     line-height: 57px;
     width: 531px;
+    margin-top: 94px;
+}
+.create__formBx{
+    margin-top: 214px;
 }
 .create__form{
+    position: absolute;
     display: flex;
     width: 45%;
     column-gap: 12px;
 }
+.create__form.name{
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 1;
+    visibility: visible;
+}
+.create__form.password{
+    left: 50px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+@keyframes createFormChangeName {
+    0%{
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 1;
+        visibility: visible;
+    }
+    40%{
+        opacity: 1;
+        visibility: visible;
+    }
+    99%{
+        left: 0;
+        opacity: 0;
+        visibility: visible;
+    }
+    100%{
+        left: 0;
+        transform: translateX(-50%);
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+@keyframes createFormChangePassword {
+    0%{
+        left: 0%;
+        transform: translateX(-50%);
+        opacity: 0;
+        visibility: hidden;
+    }
+    1%{
+        left: 0%;
+        opacity: 0;
+        visibility: visible;
+    }
+    60%{
+        opacity: 1;
+        visibility: visible;
+    }
+    100%{
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%);
+        left: 50%;
+    }
+}
+
+
 .create__inputBx{
     position: relative;
     width: 100%;
@@ -104,6 +164,42 @@ h1,h2,h3,h4,h5,h6,p{
     font-size: 18px;
     color: lightcyan;
 }
+.create__eyeBx{
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.create__eye{
+    width: 100%;
+}
+.create__eyeOff{
+    position: absolute;
+    width: 0%;
+    height: 8px;
+    background-color: lightcyan;
+    transform: rotate(149deg);
+    transition: all 170ms ease-in-out;
+}
+.eyeOff__span{
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 3px;
+    background-color: black;
+    bottom: -2px;
+}
+.create__eyeOff[data-showpass="true"]{
+    width: 100%;
+}
+.create__eyeOff[data-showpass="false"]{
+    opacity: 0;
+}
+
 .create__enterBtn{
     padding: 24px 54px;
     font-size: 20px;
@@ -155,6 +251,9 @@ h1,h2,h3,h4,h5,h6,p{
         font-size: 36px;
         line-height: 52px;
     }
+    .create__formBx{
+        margin-top: 150px;
+    }
     .create__form{
         width: 80%;
     }
@@ -163,6 +262,7 @@ h1,h2,h3,h4,h5,h6,p{
 @media only screen and (max-width: 36em){
     .main__create{
         padding: 0 20px;
+        overflow: hidden;
     }
     .create__login{
         padding: 1rem 20px 0 0;
@@ -175,6 +275,11 @@ h1,h2,h3,h4,h5,h6,p{
     .create__title{
         width: auto;
         padding-inline: 28px;
+    }
+    .create__formBx{
+        margin-top: 125px;
+        position: relative;
+        width: 100%;
     }
     .create__form{
         width: 100%;
@@ -194,5 +299,12 @@ h1,h2,h3,h4,h5,h6,p{
     .create__enterBtn{
         padding: 20px 34px;
         font-size: 19px;
+    }
+}
+
+/* Height medias */
+@media only screen and (max-height: 607px){
+    .create__formBx{
+        margin-top: 104px;
     }
 }
