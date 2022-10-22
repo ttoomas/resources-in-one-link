@@ -123,7 +123,7 @@ const CreateRes = () => {
             <input ref={resPassword} type="password" placeholder='Hide your Resources, enter Password' className='create__input' id='create__inputPass' onKeyDown={e => {if(e.code === "Enter" || e.code === "NumpadEnter"){handleSubmit()}}} />
             <label htmlFor="create__inputPass" className='create__label'>Enter your password</label>
             <div className='create__eyeBx' onClick={showPassword}>
-              <img src={eyeOn} alt="" aria-hidden="true" className='create__eye on' />
+              <img src={eyeOn} alt="" aria-hidden="true" className='create__eye on' draggable="false" />
               <div data-showpass="false" className='create__eyeOff'>
                 <span className='eyeOff__span'></span>
               </div>

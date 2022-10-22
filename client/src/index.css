@@ -28,7 +28,7 @@ h1,h2,h3,h4,h5,h6,p{
 }
 
 /* CreateRes page */
-.main__create{
+.main__create, .main__login{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,29 +38,32 @@ h1,h2,h3,h4,h5,h6,p{
     /* color: lightgray; */
     color: lightcyan;
 }
-.create__login{
+.create__login, .login__create{
     align-self: flex-end;
     padding: 1.25rem 32px 0 0;
     font-size: 18px;
     letter-spacing: 0.5px;
 }
-.create__loginLink{
+.create__loginLink, .login__createLink{
     text-decoration: underline wavy lightcyan 2px;
     text-underline-offset: 8px;
     color: lightcyan;
     margin-left: 3px;
-    transition: all 200ms ease-in-out;
+    transition: text-shadow 200ms ease-in-out;
 }
-.create__loginLink:hover{
+.create__loginLink:hover, .login__createLink:hover{
     text-shadow: 4px 4px 8px white;
 }
-.create__title{
+.create__title, .login__title{
     text-align: center;
     font-weight: 700;
     font-size: 44px;
     line-height: 57px;
     width: 531px;
     margin-top: 94px;
+}
+.login__title{
+    width: 574px;
 }
 .create__formBx{
     margin-top: 214px;
@@ -149,13 +152,12 @@ h1,h2,h3,h4,h5,h6,p{
 }
 .create__label{
     position: absolute;
-    font-size: 1rem;
+    font-size: 20px;
     top: 50%;
     transform: translateY(-50%);
     left: 1.5rem;
     pointer-events: none;
     color: black;
-    font-size: 20px;
     transition: font-size 200ms ease-in-out, top 200ms ease-in-out, color 150ms 50ms ease-in-out;
 }
 .create__input:focus + .create__label,
@@ -164,7 +166,7 @@ h1,h2,h3,h4,h5,h6,p{
     font-size: 18px;
     color: lightcyan;
 }
-.create__eyeBx{
+.create__eyeBx, .login__eyeBx{
     position: absolute;
     right: 5px;
     top: 50%;
@@ -174,16 +176,16 @@ h1,h2,h3,h4,h5,h6,p{
     align-items: center;
     cursor: pointer;
 }
-.create__eye{
+.create__eye, .login__eye{
     width: 100%;
 }
-.create__eyeOff{
+.create__eyeOff, .login__eyeOff{
     position: absolute;
     width: 0%;
     height: 8px;
     background-color: lightcyan;
     transform: rotate(149deg);
-    transition: all 170ms ease-in-out;
+    transition: width 170ms ease-in-out, opacity 170ms ease-in-out;
 }
 .eyeOff__span{
     display: block;
@@ -193,10 +195,10 @@ h1,h2,h3,h4,h5,h6,p{
     background-color: black;
     bottom: -2px;
 }
-.create__eyeOff[data-showpass="true"]{
+.create__eyeOff[data-showpass="true"], .login__eyeOff[data-showpass="true"]{
     width: 100%;
 }
-.create__eyeOff[data-showpass="false"]{
+.create__eyeOff[data-showpass="false"], .login__eyeOff[data-showpass="false"]{
     opacity: 0;
 }
 
@@ -247,7 +249,7 @@ h1,h2,h3,h4,h5,h6,p{
 }
 
 @media only screen and (max-width: 44em){
-    .create__title{
+    .create__title, .login__title{
         font-size: 36px;
         line-height: 52px;
     }
@@ -260,19 +262,19 @@ h1,h2,h3,h4,h5,h6,p{
 }
 
 @media only screen and (max-width: 36em){
-    .main__create{
+    .main__create, .main__login{
         padding: 0 20px;
         overflow: hidden;
     }
-    .create__login{
+    .create__login, .login__create{
         padding: 1rem 20px 0 0;
         text-align: center;
         font-size: 16px;
     }
-    .create__loginLink{
+    .create__loginLink, .login__createLink{
         margin-left: 0;
     }
-    .create__title{
+    .create__title, .login__title{
         width: auto;
         padding-inline: 28px;
     }
@@ -306,5 +308,126 @@ h1,h2,h3,h4,h5,h6,p{
 @media only screen and (max-height: 607px){
     .create__formBx{
         margin-top: 104px;
+    }
+}
+
+
+
+/* Login page */
+.login__eyeBx{
+    right: 14px;
+    width: 40px;
+}
+.login__formContainer{
+    width: 564px;
+    margin-top: 90px;
+    text-align: center;
+}
+.login__formBx{
+    display: flex;
+    flex-direction: column;
+}
+.login__formBx.password{
+    margin-top: 54px;
+}
+.login__form{
+    position: relative;
+}
+.login__input{
+    width: 100%;
+    padding: 24px 12px 24px 22px;
+    outline: 0;
+    border: 0;
+    background-color: lightcyan;
+    font-size: 20px;
+}
+.login__input::placeholder{
+    opacity: 0;
+}
+.login__label{
+    position: absolute;
+    font-size: 19px;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 22px;
+    pointer-events: none;
+    color: black;
+    transition: font-size 200ms ease-in-out, top 200ms ease-in-out, color 150ms 50ms ease-in-out;
+}
+.login__input:focus + .login__label,
+.login__input:not(:placeholder-shown) + .login__label{
+    top: -18px;
+    font-size: 17px;
+    color: lightcyan;
+}
+.login__error{
+    color: var(--err-red);
+    margin: 8px 0 -4px 6px;
+    font-size: 17px;
+    text-align: left;
+}
+.login__enterBtn{
+    width: 62%;
+    padding: 16px 0;
+    margin-top: 52px;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    background-color: lightcyan;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: background-color 175ms ease-in-out, color 175ms ease-in-out, border 175ms ease-in-out;
+}
+.login__enterBtn:hover{
+    background-color: var(--main-bg);
+    color: lightcyan;
+    border: 3px solid lightcyan;
+}
+
+@media only screen and (max-width: 44em){
+    .login__formContainer{
+        width: 462px;
+        margin-top: 74px;
+    }
+}
+
+@media only screen and (max-width: 36em){
+    .main__login{
+        padding: 0 24px;
+    }
+    .login__title{
+        font-size: 34px;
+        line-height: 48px;
+        margin-top: 64px;
+        padding-inline: 0;
+    }
+    .login__formContainer{
+        width: 100%;
+    }
+    .login__formBx.password{
+        margin-top: 42px;
+    }
+    .login__input{
+        padding: 20px 10px 20px 20px;
+        font-size: 18px;
+    }
+    .login__label{
+        left: 20px;
+        font-size: 18px;
+    }
+    .login__input:focus + .login__label,
+    .login__input:not(:placeholder-shown) + .login__label{
+        top: -15px;
+        font-size: 16px;
+    }
+    .login__error{
+        font-size: 1rem;
+        margin: 5px 0 -6px 4px;
+    }
+    .login__enterBtn{
+        width: 60%;
+        font-size: 19px;
+        padding: 14px 0;
+        margin-top: 46px;
     }
 }
