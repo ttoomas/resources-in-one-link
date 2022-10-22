@@ -46,7 +46,6 @@ const CreateRes = () => {
       setErr({"resPassword": "Please enter some name"});
     }
     else{
-      console.log(resNameVal + "  .  " + resPasswordVal);
       setErr([]);
 
       async function createResAxios(){

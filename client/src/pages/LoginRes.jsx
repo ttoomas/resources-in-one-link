@@ -2,10 +2,11 @@ import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
 import { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import eyeOn from "../imgs/eye.png";
 
 const LoginRes = () => {
+  const navigate = useNavigate();
   const resName = useRef(null);
   const resPassword = useRef(null);
   const [err, setErr] = useState([]);
@@ -27,27 +28,30 @@ const LoginRes = () => {
   const handleSubmit = () => {
     const resNameVal = resName.current.value;
     const resPasswordVal = resPassword.current.value;
+    let errs = 0;
     setErr([]);
 
     if(resNameVal.length === 0){
+      errs++;
       setErr(prev => ({...prev, "resName": "Please enter resources Name"}));
     }
     if(resPasswordVal.length === 0){
+      errs++
       setErr(prev => ({...prev, "resPassword": "Please enter resources Password"}));
     }
-    else{
+    else if(errs === 0){
       async function loginResAxios(){
         try{
-          const esc = await axios({
+          await axios({
             method: "post",
             url: "/loginres",
             data: {"resName": resNameVal, "resPassword": resPasswordVal}
           });
 
-          console.log(esc);
+          navigate('/resources');
         }
         catch(err){
-          console.log(err);
+          setErr(err.response.data);
         }
       }
 
@@ -73,7 +77,7 @@ const LoginRes = () => {
 
         <div className="login__formBx password">
           <div className='login__form password'>
-            <input ref={resPassword} type="password" placeholder='Resources Password' className='login__input' id='login__inputPass' />
+            <input ref={resPassword} type="password" placeholder='Resources Password' className='login__input' id='login__inputPass' onKeyDown={e => {if(e.key === "Enter" || e.key === "NumEnter"){handleSubmit();}}} />
             <label htmlFor="login__inputPass" className='login__label'>Resources Password</label>
             <div className='login__eyeBx' onClick={showPassword}>
               <img src={eyeOn} alt="" aria-hidden="true" className='login__eye on' draggable="false" />
