@@ -42,13 +42,13 @@ const LoginRes = () => {
     else if(errs === 0){
       async function loginResAxios(){
         try{
-          await axios({
+          const slug = await axios({
             method: "post",
             url: "/loginres",
             data: {"resName": resNameVal, "resPassword": resPasswordVal}
           });
 
-          navigate('/resources');
+          navigate(`/resources/${slug.data.slug}`);
         }
         catch(err){
           setErr(err.response.data);

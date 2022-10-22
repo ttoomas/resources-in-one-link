@@ -50,13 +50,15 @@ const CreateRes = () => {
 
       async function createResAxios(){
         try{
-          await axios({
+          const createRes = await axios({
             method: "post",
             url: "/createres",
             data: {"resName": resNameVal, "resPassword": resPasswordVal}
           });
 
-          navigate('/resources');
+          console.log(createRes)
+
+          navigate(`/resources/${createRes.data.slug}`);
         }
         catch(err){
           console.log(err.response.data);

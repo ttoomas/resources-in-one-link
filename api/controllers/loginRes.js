@@ -1,5 +1,6 @@
 import { db } from "../db.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const loginRes = (req, res) => {
     const name = req.body.resName;
@@ -21,7 +22,17 @@ export const loginRes = (req, res) => {
                 res.status(400).send({"resPassword": "Wrong password"});
             }
             else{
-                res.status(200).send("Correct credentials");
+                const jwtToken = jwt.sign({
+                    name: data[0].name,
+                    uid: data[0].unique_id
+                }, process.env.LOGIN_JWT_KEY, { expiresIn: '1800s' });
+
+                res.cookie("access_token", jwtToken, {
+                    httpOnly: true,
+                    maxAge: 1800000
+                })
+
+                res.status(200).send({"slug": data[0].slug});
             }
         }
     })
