@@ -28,7 +28,7 @@ h1,h2,h3,h4,h5,h6,p{
 }
 
 /* CreateRes page */
-.main__create, .main__login{
+.main__create, .main__login, .main__res{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -262,9 +262,9 @@ h1,h2,h3,h4,h5,h6,p{
 }
 
 @media only screen and (max-width: 36em){
-    .main__create, .main__login{
+    .main__create, .main__login, .main__res{
         padding: 0 20px;
-        overflow: hidden;
+        overflow-x: hidden;
     }
     .create__login, .login__create{
         padding: 1rem 20px 0 0;
@@ -429,5 +429,641 @@ h1,h2,h3,h4,h5,h6,p{
         font-size: 19px;
         padding: 14px 0;
         margin-top: 46px;
+    }
+}
+
+
+/* Resources Page */
+/* Res nav */
+.main__res{
+    padding: 44px 156px 54px 156px;
+}
+.res__nav{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.res__copyBx{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 26px;
+}
+.copy__textBx{
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+}
+.copy__text{
+    margin-right: 8px;
+}
+.copy__link{
+    color: lightcyan;
+    text-decoration: underline wavy lightcyan 2px;
+    text-underline-offset: 10px;
+}
+.copy__btn, .res__logout, .type__addBtn{
+    border: none;
+    outline: none;
+    padding: 7px 23px;
+    background-color: lightcyan;
+    font-size: 19px;
+    cursor: pointer;
+    border: 3px solid lightcyan;
+    transition: background-color 200ms ease-in-out, color 200ms ease-in-out, border-radius 200ms ease-in-out;
+}
+.copy__btn:hover, .res__logout:hover, .type__addBtn:hover{
+    background-color: var(--main-bg);
+    color: lightcyan;
+    border-radius: 10px;
+}
+
+/* Res content */
+.res__contentBx{
+    display: flex;
+    flex-direction: column;
+    row-gap: 36px;
+    width: 100%;
+    margin: 70px 0;
+    overflow: auto;
+}
+.res__contentBx::-webkit-scrollbar{
+    width: 24px;
+}
+.res__contentBx::-webkit-scrollbar-thumb{
+    background-color: lightcyan;
+    border-left: 19px solid var(--main-bg);
+    background-clip: padding-box;
+}
+.res__contentBx::-webkit-scrollbar-thumb:hover{
+    border-left: 18px solid var(--main-bg);
+}
+
+.res__content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.res__iconBx{
+    margin-right: 20px;
+    display: flex;
+    position: relative;
+    left: 0;
+    transition: left 200ms ease-in-out;
+}
+.res__iconBx:hover{
+    left: 3px;
+}
+.res__icon{
+    width: 36px;
+}
+.content__text{
+    position: relative;
+    width: 100%;
+    font-size: 18px;
+    letter-spacing: 0.35px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 28px;
+}
+.content__text::before{
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10%;
+    height: 100%;
+    background: linear-gradient(to right, transparent 5%, var(--main-bg) 102%);
+    pointer-events: none;
+}
+.content__hover{
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 16px;
+    border-color: lightcyan;
+    border-style: solid;
+    border-width: 0 1px 0 1px;
+    padding: 14px 20px;
+    position: relative;
+}
+.content__iconBx{
+    display: flex;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: var(--main-bg);
+    cursor: pointer;
+}
+.content__iconBx::before{
+    content: '';
+    position: absolute;
+    display: block;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    border-style: solid;
+    border-width: 1px 0 1px 0;
+    border-color: lightcyan;
+    pointer-events: none;
+    transition: all 175ms ease-in-out;
+}
+.content__iconBx:first-of-type::before{
+    left: 0;
+}
+.content__iconBx:last-of-type::before{
+    right: 0;
+}
+.content__iconBx:hover::before{
+    width: 5%;
+}
+.content__icon{
+    width: 30px;
+}
+
+/* Res edit section */
+.res__editBx{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 200px;
+    background-color: rgba(14, 14, 20, 0.9);
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+}
+.edit__title{
+    font-size: 48px;
+    font-weight: 700;
+    word-spacing: 2px;
+    letter-spacing: 2px;
+    margin-top: 130px;
+    text-align: center;
+}
+.edit__inputContainer{
+    width: 100%;
+    position: relative;
+    margin-top: 174px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.edit__input{
+    width: 100%;
+    height: 100%;
+    padding: 24px 22px;
+    outline: 0;
+    border: 0;
+    background-color: lightcyan;
+    font-size: 20px;
+}
+.edit__input::placeholder{
+    opacity: 0;
+}
+.edit__label{
+    position: absolute;
+    font-size: 22px;
+    top: -44px;
+    left: 22px;
+    pointer-events: none;
+    color: lightcyan;
+    background-color: var(--main-bg);
+}
+
+.edit__btnBx{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 18px;
+    margin-top: 38px;
+}
+.edit__btn{
+    padding: 16px 48px;
+    font-size: 18px;
+    color: lightcyan;
+    border: 2px solid lightcyan;
+    border-radius: 10px;
+    background-color: var(--main-bg);
+    outline: none;
+    cursor: pointer;
+    transition: all 160ms ease-in-out;
+}
+.edit__btn:hover{
+    background-color: lightcyan;
+    color: var(--main-bg);
+}
+
+@keyframes resEditActiveIn {
+    0%{
+        visibility: hidden;
+        opacity: 0;
+    }
+    1%{
+        visibility: visible;
+        opacity: 0;
+    }
+    100%{
+        visibility: visible;
+        opacity: 1;
+    }
+}
+@keyframes resEditActiveOut {
+    0%{
+        visibility: visible;
+        opacity: 1;
+    }
+    99%{
+        visibility: visible;
+        opacity: 0;
+    }
+    100%{
+        visibility: hidden;
+        opacity: 0;
+    }
+}
+
+
+/* Res bottom */
+.res__bottom{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: auto;
+    align-items: center;
+}
+.bottom__inputBx{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.bottom__input{
+    width: 100%;
+    height: 100%;
+    padding: 0 22px;
+    outline: 0;
+    border: 0;
+    background-color: lightcyan;
+    font-size: 20px;
+}
+.bottom__input::placeholder{
+    opacity: 0;
+}
+.bottom__label{
+    position: absolute;
+    font-size: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 22px;
+    pointer-events: none;
+    color: black;
+    transition: font-size 200ms ease-in-out, top 200ms ease-in-out, color 150ms 50ms ease-in-out;
+}
+.bottom__input:focus + .bottom__label,
+.bottom__input:not(:placeholder-shown) + .bottom__label{
+    top: -26px;
+    font-size: 18px;
+    color: lightcyan;
+}
+
+.bottom__typeBx{
+    margin-left: 20px;
+    white-space: nowrap;
+}
+.type__text{
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+.type__inputBx:first-of-type{
+    margin-bottom: 3px;
+}
+.type__inputBx{
+    margin-left: 3px;
+}
+.type__input{
+    display: none;
+}
+.type__label{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    column-gap: 11px;
+}
+.type__label::before{
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid lightcyan;
+}
+.type__label::after{
+    content: '';
+    display: block;
+    position: absolute;;
+    width: 12px;
+    height: 12px;
+    background-color: lightcyan;
+    left: 4px;
+    opacity: 0;
+    transition: opacity 170ms linear;
+}
+.type__input:checked + .type__label::after{
+    opacity: 1;
+}
+.type__addBtn{
+    padding: 16px 26px;
+    margin-left: 36px;
+    white-space: nowrap;
+}
+.type__addBtn.mobile{
+    display: none;
+}
+
+@media only screen and (max-width: 71em){
+    .main__res{
+        padding: 42px 98px 48px 98px;
+    }
+}
+
+@media only screen and (max-width: 59em){
+    .main__res{
+        padding: 34px 64px 36px 64px;
+    }
+    .copy__textBx{
+        font-size: 17px;
+    }
+    .copy__text{
+        margin-right: 10px;
+    }
+    .copy__link{
+        text-underline-offset: 9px;
+    }
+    .copy__btn, .res__logout, .type__addBtn{
+        font-size: 18px;
+        border: 2px solid lightcyan;
+        padding: 7px 18px;
+    }
+    .res__copyBx{
+        column-gap: 18px;
+    }
+    .res__contentBx{
+        margin: 60px 0 44px 0;
+        row-gap: 32px;
+    }
+    .res__iconBx{
+        margin-right: 16px;
+    }
+    .res__icon{
+        width: 32px;
+    }
+    .content__text{
+        font-size: 17px;
+        margin-right: 18px;
+    }
+    .content__hover{
+        column-gap: 14px;
+        padding: 12px 16px;
+    }
+    .content__icon{
+        width: 26px;
+    }
+    .bottom__input{
+        font-size: 18px;
+        padding: 0 16px;
+    }
+    .bottom__label{
+        font-size: 18px;
+        left: 16px;
+    }
+    .bottom__input:focus + .bottom__label,
+    .bottom__input:not(:placeholder-shown) + .bottom__label{
+        top: -20px;
+        font-size: 16px;
+    }
+    .bottom__typeBx{
+        display: grid;
+    }
+    .type__text{
+        grid-column: 1/3;
+    }
+    .type__inputBx:first-of-type{
+        grid-column: 2/1;
+        margin: 0;
+    }
+    .type__inputBx:last-of-type{
+        grid-column: 2/2;
+        margin-left: 16px;
+    }
+    .type__addBtn{
+        padding: 12px 14px;
+    }
+    .res__editBx{
+        padding: 0 128px;
+    }
+    .edit__title{
+        margin-top: 74px;
+        letter-spacing: 1px;
+        word-spacing: 1px;
+    }
+    .edit__inputContainer{
+        margin-top: 144px;
+    }
+    .edit__input{
+        font-size: 19px;
+        padding: 22px 20px;
+    }
+    .edit__label{
+        left: 20px;
+        font-size: 21px;
+        top: -42px;
+    }
+}
+
+@media only screen and (max-width: 44em){
+    .main__res{
+        padding: 24px 28px 24px 28px;
+    }
+    .copy__textBx{
+        font-size: 15px;
+    }
+    .copy__text{
+        margin-right: 7px;
+    }
+    .copy__link{
+        text-underline-offset: 7px;
+    }
+    .copy__btn, .res__logout, .type__addBtn{
+        font-size: 16px;
+        padding: 6px 13px;
+    }
+    .copy__btn:hover, .res__logout:hover, .type__addBtn:hover{
+        border-radius: 7px;
+    }
+    .res__iconBx{
+        margin-right: 10px;
+    }
+    .res__icon{
+        width: 28px;
+    }
+    .content__text{
+        font-size: 16px;
+        margin-right: 12px;
+    }
+    .content__hover{
+        column-gap: 11px;
+        padding: 11px 12px;
+    }
+    .content__icon{
+        width: 22px;
+    }
+    .res__contentBx::-webkit-scrollbar{
+        width: 20px;
+    }
+    .res__contentBx::-webkit-scrollbar-thumb{
+        border-left-width: 15px;
+    }
+    .res__contentBx::-webkit-scrollbar-thumb:hover{
+        border-left-width: 14px;
+    }
+    .bottom__input{
+        font-size: 16px;
+        padding: 0 12px;
+    }
+    .bottom__label{
+        font-size: 16px;
+        left: 12px;
+    }
+    .bottom__input:focus + .bottom__label,
+    .bottom__input:not(:placeholder-shown) + .bottom__label{
+        font-size: 15px;
+        top: -18px;
+    }
+    .bottom__typeBx{
+        margin-left: 16px;
+    }
+    .type__text{
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+    .type__label{
+        font-size: 15px;
+        column-gap: 7px;
+    }
+    .type__label::before{
+        width: 18px;
+        height: 18px;
+    }
+    .type__label::after{
+        width: 10px;
+        height: 10px;
+    }
+    .type__addBtn.mobile{
+        display: block;
+    }
+    .type__addBtn.desktop{
+        display: none;
+    }
+    .type__addBtn{
+        padding: 10px 12px;
+        margin-left: 19px;
+    }
+    .res__contentBx{
+        margin: 34px 0 40px 0;
+        row-gap: 20px;
+    }
+    .res__editBx{
+        padding: 0 68px;
+    }
+    .edit__title{
+        font-size: 40px;
+        word-spacing: 0;
+        margin-top: 50px;
+    }
+    .edit__inputContainer{
+        margin-top: 100px;
+    }
+    .edit__input{
+        font-size: 18px;
+        padding: 20px 16px;
+    }
+    .edit__label{
+        left: 16px;
+        font-size: 19px;
+        top: -38px;
+    }
+    .edit__btn{
+        padding: 14px 34px;
+    }
+}
+
+@media only screen and (max-width: 31.5em){
+    .main__res{
+        padding: 16px 14px 14px 14px;
+    }
+    .copy__text{
+        display: none;
+    }
+    .res__bottom{
+        display: grid;
+    }
+    .bottom__inputBx{
+        grid-column: 1/3;
+        margin-bottom: 1px;
+    }
+    .bottom__typeBx{
+        grid-column: 2/1;
+        margin-top: 18px;
+        margin-left: 0;
+    }
+    .type__addBtn{
+        grid-column: 2/2;
+        margin-top: auto;
+        margin-left: 0;
+    }
+    .bottom__input{
+        padding: 12px 8px;
+    }
+    .bottom__label{
+        left: 8px;
+    }
+    .type__inputBx:last-of-type{
+        margin-left: -38px;
+    }
+    .res__editBx{
+        padding: 0 26px;
+    }
+    .edit__title{
+        font-size: 32px;
+        margin-top: 46px;
+    }
+    .edit__inputContainer{
+        margin-top: 68px;
+    }
+    .edit__input{
+        font-size: 16px;
+        padding: 20px 10px;
+    }
+    .edit__label{
+        left: 10px;
+        font-size: 17px;
+        top: -34px;
+    }
+    .edit__btnBx{
+        column-gap: 12px;
+        margin-top: 28px;
+    }
+    .edit__btn{
+        padding: 12px 24px;
     }
 }

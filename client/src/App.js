@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CreateRes from "./pages/CreateRes";
 import LoginRes from "./pages/LoginRes";
-import Resources from "./pages/Resources";
+import UpdateRes from "./pages/UpdateRes";
 
 function App() {
   const router = createBrowserRouter([
@@ -14,8 +14,8 @@ function App() {
       element: <LoginRes/>
     },
     {
-      path: "/resources/:slug",
-      element: <Resources/>
+      path: "/update/resources/:slug",
+      element: <UpdateRes/>
     }
   ])
 

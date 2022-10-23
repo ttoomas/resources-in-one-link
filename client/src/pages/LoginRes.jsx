@@ -48,7 +48,7 @@ const LoginRes = () => {
             data: {"resName": resNameVal, "resPassword": resPasswordVal}
           });
 
-          navigate(`/resources/${slug.data.slug}`);
+          navigate(`/update/resources/${slug.data.slug}`);
         }
         catch(err){
           setErr(err.response.data);

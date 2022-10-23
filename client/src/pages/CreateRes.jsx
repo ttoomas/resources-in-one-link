@@ -58,7 +58,7 @@ const CreateRes = () => {
 
           console.log(createRes)
 
-          navigate(`/resources/${createRes.data.slug}`);
+          navigate(`/update/resources/${createRes.data.slug}`);
         }
         catch(err){
           console.log(err.response.data);
