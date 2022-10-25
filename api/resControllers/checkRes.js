@@ -42,15 +42,17 @@ export const checkRes = (req, res) => {
 }
 
 function getResources(res, resourcesId){
-    const query = "SELECT * FROM `res-posts` WHERE `created_by` = ?";
+    const query = "SELECT * FROM `sources` WHERE `created_by` = ?";
 
     db.query(query, [resourcesId], (err, data) => {
         if(err){
             console.log(err);
         }
         else{
-            let result = data.map(a => a.body);
-            res.status(200).send(result);
+            const result = data.map(({body, type}) => ({body, type}));
+            let finalResult = {"resId": resourcesId, result};
+
+            res.status(200).send(finalResult);
         }
     })
 }

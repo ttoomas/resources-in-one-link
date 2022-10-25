@@ -21,6 +21,7 @@ body{
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: var(--main-bg);
 }
 
 h1,h2,h3,h4,h5,h6,p{
@@ -530,6 +531,16 @@ h1,h2,h3,h4,h5,h6,p{
     text-overflow: ellipsis;
     margin-right: 28px;
 }
+.content__text.link{
+    color: lightcyan;
+    text-decoration: underline wavy lightcyan 2px;
+    text-underline-offset: 8px;
+    padding-bottom: 7px;
+    transition: text-shadow 200ms ease-in-out;
+}
+.content__text.link:hover{
+    text-shadow: 2px 1px 8px lightcyan;
+}
 .content__text::before{
     content: '';
     display: block;
@@ -700,6 +711,7 @@ h1,h2,h3,h4,h5,h6,p{
     flex-direction: row;
     margin-top: auto;
     align-items: center;
+    position: relative;
 }
 .bottom__inputBx{
     position: relative;
@@ -786,8 +798,15 @@ h1,h2,h3,h4,h5,h6,p{
     margin-left: 36px;
     white-space: nowrap;
 }
-.type__addBtn.mobile{
+.type__addBtn .addMobile{
     display: none;
+}
+.res__error{
+    position: absolute;
+    bottom: -34px;
+    left: 22px;
+    font-size: 20px;
+    color: var(--err-red);
 }
 
 @media only screen and (max-width: 71em){
@@ -798,7 +817,7 @@ h1,h2,h3,h4,h5,h6,p{
 
 @media only screen and (max-width: 59em){
     .main__res{
-        padding: 34px 64px 36px 64px;
+        padding: 34px 64px 44px 64px;
     }
     .copy__textBx{
         font-size: 17px;
@@ -888,11 +907,16 @@ h1,h2,h3,h4,h5,h6,p{
         font-size: 21px;
         top: -42px;
     }
+    .res__error{
+        font-size: 18px;
+        bottom: -32px;
+        left: 16px;
+    }
 }
 
 @media only screen and (max-width: 44em){
     .main__res{
-        padding: 24px 28px 24px 28px;
+        padding: 24px 28px 40px 28px;
     }
     .copy__textBx{
         font-size: 15px;
@@ -919,6 +943,9 @@ h1,h2,h3,h4,h5,h6,p{
     .content__text{
         font-size: 16px;
         margin-right: 12px;
+    }
+    .content__text.link{
+        text-underline-offset: 6px;
     }
     .content__hover{
         column-gap: 11px;
@@ -968,10 +995,10 @@ h1,h2,h3,h4,h5,h6,p{
         width: 10px;
         height: 10px;
     }
-    .type__addBtn.mobile{
+    .type__addBtn .addMobile{
         display: block;
     }
-    .type__addBtn.desktop{
+    .type__addBtn .addDesktop{
         display: none;
     }
     .type__addBtn{
@@ -1005,11 +1032,16 @@ h1,h2,h3,h4,h5,h6,p{
     .edit__btn{
         padding: 14px 34px;
     }
+    .res__error{
+        left: 12px;
+        bottom: -29px;
+        font-size: 16px;
+    }
 }
 
 @media only screen and (max-width: 31.5em){
     .main__res{
-        padding: 16px 14px 14px 14px;
+        padding: 16px 14px 42px 14px;
     }
     .copy__text{
         display: none;
@@ -1065,5 +1097,9 @@ h1,h2,h3,h4,h5,h6,p{
     }
     .edit__btn{
         padding: 12px 24px;
+    }
+    .res__error{
+        bottom: -32px;
+        left: 0;
     }
 }
