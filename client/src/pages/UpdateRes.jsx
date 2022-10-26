@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import editIcon from "../imgs/edit.png";
 import deleteIcon from "../imgs/delete.png";
 import textIcon from "../imgs/text.png";
-import { handleEdit, handleCancel, copyRes } from "../helpers/handleUpdates";
+import { handleEdit, handleCancel, copyRes, handleDeleteSource } from "../helpers/handleUpdates";
 import { useState } from 'react';
 
 const UpdateRes = () => {
@@ -58,16 +58,18 @@ const UpdateRes = () => {
 		else{
 			async function createNewSource(){
 				try{
-					await axios({
+					const sourceIdRes = await axios({
 						method: "post",
 						url: "/createsource",
 						data: {"sourceName": sourceName, "sourceType": sourceType, "resourcesId": resourcesId}
 					});
 
+					const sourceId = sourceIdRes.data;
+
 					const bottomInput = document.querySelector('.bottom__input');
 					const resContentBx = document.querySelector('.res__contentBx');
 
-					setSources(prev => ([...prev, {body: sourceName, type: sourceType}]));
+					setSources(prev => ([...prev, {"body": sourceName, "type": sourceType, "id": sourceId}]));
 					bottomInput.value = "";
 					
 					setTimeout(() => {
@@ -81,6 +83,15 @@ const UpdateRes = () => {
 
 			createNewSource();
 		}
+	}
+
+	const resLogout = async () => {
+		await axios({
+			method: "get",
+			url: "/logoutres"
+		});
+	
+		navigate('/login');
 	}
 
 	useEffect(() => {
@@ -103,12 +114,12 @@ const UpdateRes = () => {
 					</div>
 					<button className='copy__btn' onClick={(e) => copyRes(e, resShortUrl)}>Copy</button>
 				</div>
-				<button className="res__logout">Logout</button>
+				<button className="res__logout" onClick={resLogout}>Logout</button>
 			</div>
 			
 
 			<div className='res__contentBx'>
-				{ sources.map(({ body, type }) => {
+				{ sources.map(({ body, type, id }) => {
 					if(type === "link"){
 						let link = "https://" + (body.replace("http://", "").replace("https://", ""));
 
@@ -122,7 +133,7 @@ const UpdateRes = () => {
 									<button className="content__iconBx" id='content__edit' onClick={handleEdit}>
 										<img src={editIcon} className="content__icon" id='contentIcon__edit' alt="" aria-hidden="true" draggable="false" />
 									</button>
-									<button className="content__iconBx" id='content__delete'>
+									<button className="content__iconBx" id='content__delete' onClick={(e) => handleDeleteSource(e, id)}>
 										<img src={deleteIcon} className="content__icon" alt="" aria-hidden="true" draggable="false" />
 									</button>
 								</div>
@@ -140,7 +151,7 @@ const UpdateRes = () => {
 									<button className="content__iconBx" id='content__edit' onClick={handleEdit}>
 										<img src={editIcon} className="content__icon" id='contentIcon__edit' alt="" aria-hidden="true" draggable="false" />
 									</button>
-									<button className="content__iconBx" id='content__delete'>
+									<button className="content__iconBx" id='content__delete' onClick={(e) => handleDeleteSource(e, id)}>
 										<img src={deleteIcon} className="content__icon" alt="" aria-hidden="true" draggable="false" />
 									</button>
 								</div>

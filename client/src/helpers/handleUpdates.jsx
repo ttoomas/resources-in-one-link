@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const handleEdit = () => {
   const resEditBx = document.querySelector('.res__editBx');
 
@@ -23,4 +25,16 @@ export const copyRes = (e, resShortUrl) => {
     copyBtn.innerText = "Copy";
     copyBtn.removeAttribute('disabled');
   }, 2000);
+}
+
+export const handleDeleteSource = async (e, id) => {
+  const parent = e.target.parentNode.parentNode.parentNode;
+
+  parent.remove();
+
+  axios({
+    method: "post",
+    url: "/deletesource",
+    data: {id}
+  })
 }

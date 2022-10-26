@@ -28,7 +28,8 @@ export const createSource = (req, res) => {
                         console.log(err);
                     }
                     else{
-                        res.status(200).send('its working');
+                        let sourceId = data.insertId.toString();
+                        res.status(200).send(sourceId);
                     }
                 })
             }

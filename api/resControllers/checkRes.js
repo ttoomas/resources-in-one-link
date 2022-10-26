@@ -49,7 +49,7 @@ function getResources(res, resourcesId, resourcesShortUrl){
             console.log(err);
         }
         else{
-            const result = data.map(({body, type}) => ({body, type}));
+            const result = data.map(({body, type, id}) => ({body, type, id}));
             let finalResult = {"resId": resourcesId, "resShortUrl": resourcesShortUrl, result};
 
             res.status(200).send(finalResult);

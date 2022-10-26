@@ -463,11 +463,13 @@ h1,h2,h3,h4,h5,h6,p{
 }
 .copy__btn:disabled{
     transition: 150ms ease-in-out;
+    background-color: var(--main-bg);
+    color: lightcyan;
     cursor: initial;
 }
 .copy__btn:disabled:hover{
-    background-color: lightcyan;
-    color: black;
+    background-color: var(--main-bg);
+    color: lightcyan;
     border-radius: 0;
 }
 .copy__link{
