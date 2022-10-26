@@ -2,13 +2,20 @@ import { db } from "../db.js";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
+import fetch from "node-fetch";
 
 export const createRes = (req, res) => {
     const name = req.body.resName;
+    const slug = name.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
+    const frontendUrl = process.env.FRONTEND_URL;
 
-    const query = "SELECT * FROM resources WHERE name = ?";
+    const query = "SELECT * FROM resources WHERE name = ? OR slug = ?";
+    const values = [
+        name,
+        slug
+    ]
 
-    db.query(query, name, (err, data) => {
+    db.query(query, values, async (err, data) => {
         if(err){
             res.status(400).send('db error');
         }
@@ -18,15 +25,19 @@ export const createRes = (req, res) => {
         else{
             const salt = bcrypt.genSaltSync(10);
             const hashPass = bcrypt.hashSync(req.body.resPassword, salt);
-            const slug = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '').toLowerCase();
             const uid = uuidv4();
 
-            const query = "INSERT INTO resources(`name`, `password`, `unique_id`, `slug`) VALUES (?)";
+            const finalUrl = `${frontendUrl}/resources/${slug}`;
+            const shortUrlReq = await (await fetch(`https://api.shrtco.de/v2/shorten?url=${finalUrl}`)).json();
+            const shortUrl = shortUrlReq.result.short_link;
+
+            const query = "INSERT INTO resources(`name`, `password`, `unique_id`, `slug`, `short_url`) VALUES (?)";
             const values = [
                 name,
                 hashPass,
                 uid,
-                slug
+                slug,
+                shortUrl
             ];
             
             const jwtToken = jwt.sign({

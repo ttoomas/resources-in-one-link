@@ -461,16 +461,25 @@ h1,h2,h3,h4,h5,h6,p{
 .copy__text{
     margin-right: 8px;
 }
+.copy__btn:disabled{
+    transition: 150ms ease-in-out;
+    cursor: initial;
+}
+.copy__btn:disabled:hover{
+    background-color: lightcyan;
+    color: black;
+    border-radius: 0;
+}
 .copy__link{
     color: lightcyan;
     text-decoration: underline wavy lightcyan 2px;
     text-underline-offset: 10px;
 }
 .copy__btn, .res__logout, .type__addBtn{
-    border: none;
     outline: none;
     padding: 7px 23px;
     background-color: lightcyan;
+    color: black;
     font-size: 19px;
     cursor: pointer;
     border: 3px solid lightcyan;

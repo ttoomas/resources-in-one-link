@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import editIcon from "../imgs/edit.png";
 import deleteIcon from "../imgs/delete.png";
 import textIcon from "../imgs/text.png";
-import { handleEdit, handleCancel } from "../helpers/handleUpdates";
+import { handleEdit, handleCancel, copyRes } from "../helpers/handleUpdates";
 import { useState } from 'react';
 
 const UpdateRes = () => {
@@ -14,6 +14,7 @@ const UpdateRes = () => {
 	const [err, setErr] = useState("");
 	const [resourcesId, setResourcesId] = useState("");
 	const [sources, setSources] = useState([]);
+	const [resShortUrl, setResShortUrl] = useState("github.com/ttoomas");
 
 	const navigate = useNavigate();
 	const currentSlug = window.location.pathname.split('/').pop();
@@ -27,8 +28,9 @@ const UpdateRes = () => {
 					data: {"currentSlug": currentSlug}
 				});
 
+				setResShortUrl(getRes.data.resShortUrl);
 				setResourcesId(getRes.data.resId);
-				setSources(getRes.data.result)
+				setSources(getRes.data.result);
 			}
 			catch(err){
 				navigate('/login');
@@ -97,9 +99,9 @@ const UpdateRes = () => {
 				<div className="res__copyBx">
 					<div className="copy__textBx">
 						<p className='copy__text'>Share your resources</p>
-						<Link to={{ pathname: `/resources/${currentSlug}`}} className='copy__link'>short.ly/haha</Link>
+						<Link to={{ pathname: `/resources/${currentSlug}`}} target="_blank" className='copy__link'>{ resShortUrl }</Link>
 					</div>
-					<button className='copy__btn'>Copy</button>
+					<button className='copy__btn' onClick={(e) => copyRes(e, resShortUrl)}>Copy</button>
 				</div>
 				<button className="res__logout">Logout</button>
 			</div>

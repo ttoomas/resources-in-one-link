@@ -56,7 +56,7 @@ const CreateRes = () => {
             data: {"resName": resNameVal, "resPassword": resPasswordVal}
           });
 
-          console.log(createRes)
+          console.log(createRes);
 
           navigate(`/update/resources/${createRes.data.slug}`);
         }

@@ -14,7 +14,7 @@ export const checkRes = (req, res) => {
                 console.log('Wrong token');
             }
             else{
-                const jwtSlug = decoded.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s/g, '').toLowerCase();
+                const jwtSlug = decoded.name.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
                 
                 if(currentSlug !== jwtSlug){
                     res.status(400).send('Slugs are not same');
@@ -31,7 +31,7 @@ export const checkRes = (req, res) => {
                                 console.log("there is some error");
                             }
                             else{
-                                getResources(res, data[0].id);
+                                getResources(res, data[0].id, data[0].short_url);
                             }
                         }
                     })
@@ -41,7 +41,7 @@ export const checkRes = (req, res) => {
     }
 }
 
-function getResources(res, resourcesId){
+function getResources(res, resourcesId, resourcesShortUrl){
     const query = "SELECT * FROM `sources` WHERE `created_by` = ?";
 
     db.query(query, [resourcesId], (err, data) => {
@@ -50,7 +50,7 @@ function getResources(res, resourcesId){
         }
         else{
             const result = data.map(({body, type}) => ({body, type}));
-            let finalResult = {"resId": resourcesId, result};
+            let finalResult = {"resId": resourcesId, "resShortUrl": resourcesShortUrl, result};
 
             res.status(200).send(finalResult);
         }
