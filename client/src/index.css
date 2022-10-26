@@ -667,7 +667,7 @@ h1,h2,h3,h4,h5,h6,p{
     flex-direction: row;
     justify-content: center;
     column-gap: 18px;
-    margin-top: 38px;
+    margin-top: 48px;
 }
 .edit__btn{
     padding: 16px 48px;
@@ -683,6 +683,12 @@ h1,h2,h3,h4,h5,h6,p{
 .edit__btn:hover{
     background-color: lightcyan;
     color: var(--main-bg);
+}
+.res__editError{
+    position: absolute;
+    margin-top: 6px;
+    font-size: 18px;
+    color: var(--err-red);
 }
 
 @keyframes resEditActiveIn {
@@ -1040,6 +1046,9 @@ h1,h2,h3,h4,h5,h6,p{
         font-size: 19px;
         top: -38px;
     }
+    .edit__btnBx{
+        margin-top: 42px;
+    }
     .edit__btn{
         padding: 14px 34px;
     }
@@ -1047,6 +1056,10 @@ h1,h2,h3,h4,h5,h6,p{
         left: 12px;
         bottom: -29px;
         font-size: 16px;
+    }
+    .res__editError{
+        font-size: 16px;
+        margin-top: 4px;
     }
 }
 
@@ -1104,7 +1117,7 @@ h1,h2,h3,h4,h5,h6,p{
     }
     .edit__btnBx{
         column-gap: 12px;
-        margin-top: 28px;
+        margin-top: 34px;
     }
     .edit__btn{
         padding: 12px 24px;
@@ -1112,5 +1125,9 @@ h1,h2,h3,h4,h5,h6,p{
     .res__error{
         bottom: -32px;
         left: 0;
+    }
+    .res__editError{
+        font-size: 14px;
+        margin-top: 3px;
     }
 }

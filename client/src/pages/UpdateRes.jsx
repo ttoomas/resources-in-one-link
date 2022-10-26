@@ -11,7 +11,7 @@ import { useState } from 'react';
 const UpdateRes = () => {
 	const [sourceName, setSourceName] = useState("");
 	const [sourceType, setSourceType] = useState("text");
-	const [err, setErr] = useState("");
+	const [err, setErr] = useState({});
 	const [resourcesId, setResourcesId] = useState("");
 	const [sources, setSources] = useState([]);
 	const [resShortUrl, setResShortUrl] = useState("github.com/ttoomas");
@@ -47,13 +47,13 @@ const UpdateRes = () => {
 	}
 
 	const handleAddRes = (e) => {
-		setErr("");
+		setErr({});
 	
 		if(sourceName.length === 0){
-			setErr("Please enter some source");
+			setErr({"createSource": "Please enter some source"});
 		}
 		else if(sourceName.length <= 2){
-			setErr("Too short, please enter some source");
+			setErr({"createSource": "Too short, please enter some source"});
 		}
 		else{
 			async function createNewSource(){
@@ -77,7 +77,7 @@ const UpdateRes = () => {
 					}, 10);
 				}
 				catch(err){
-					setErr(err.response.data)
+					setErr({"createSource": err.response.data})
 				}
 			}
 
@@ -92,6 +92,41 @@ const UpdateRes = () => {
 		});
 	
 		navigate('/login');
+	}
+
+	const handleUpdateSource = async (e) =>  {
+		const resEditBx = e.target.parentNode.parentNode;
+		const resEditInput = resEditBx.querySelector('.edit__input');
+		const inputValue = resEditInput.value;
+		const originalInputValue = resEditInput.getAttribute('data-original-content');
+		const sourceId = resEditBx.getAttribute('data-source-id');
+	
+		if(inputValue.length === 0){
+			setErr({"updateSource": "Please enter some source"});
+		}
+		else if(inputValue.length <= 2){
+			setErr({"updateSource": "Too short, please enter some source"});
+		}
+		else if(inputValue === originalInputValue){
+			handleCancel();
+		}
+		else{
+			setSources(sources.map(obj => {
+				if(obj.id === parseInt(sourceId)){
+					return {...obj, body: inputValue};
+				}
+
+				return obj;
+			}))
+
+			handleCancel();
+			
+			axios({
+				method: "post",
+				url: "/updatesource",
+				data: {"sourceId": sourceId, "sourceContent": inputValue}
+			})
+		}
 	}
 
 	useEffect(() => {
@@ -130,7 +165,7 @@ const UpdateRes = () => {
 								</div>
 								<a href={link} target="_blank" rel="noreferrer" className='content__text link'>{ body }</a>
 								<div className='content__hover'>
-									<button className="content__iconBx" id='content__edit' onClick={handleEdit}>
+									<button className="content__iconBx" id='content__edit' onClick={e => handleEdit(e, id)}>
 										<img src={editIcon} className="content__icon" id='contentIcon__edit' alt="" aria-hidden="true" draggable="false" />
 									</button>
 									<button className="content__iconBx" id='content__delete' onClick={(e) => handleDeleteSource(e, id)}>
@@ -148,7 +183,7 @@ const UpdateRes = () => {
 								</div>
 								<p className='content__text'>{ body }</p>
 								<div className='content__hover'>
-									<button className="content__iconBx" id='content__edit' onClick={handleEdit}>
+									<button className="content__iconBx" id='content__edit' onClick={e => handleEdit(e, id)}>
 										<img src={editIcon} className="content__icon" id='contentIcon__edit' alt="" aria-hidden="true" draggable="false" />
 									</button>
 									<button className="content__iconBx" id='content__delete' onClick={(e) => handleDeleteSource(e, id)}>
@@ -164,11 +199,14 @@ const UpdateRes = () => {
 			<div className="res__editBx">
 				<h3 className='edit__title'>Edit your source</h3>
 				<div className='edit__inputContainer'>
-					<input type="text" className='edit__input' id='edit__input' placeholder='Update your Source'/>
+					<input type="text" className='edit__input' id='edit__input' placeholder='Update your Source' data-original-content=""/>
 					<label htmlFor="edit__input" className='edit__label'>Update your Source</label>
 				</div>
+				{ err.updateSource && (
+					<p className='res__editError'>{err.updateSource}</p>
+				) }
 				<div className="edit__btnBx">
-					<button className='edit__btn edit'>Update</button>
+					<button className='edit__btn edit' onClick={handleUpdateSource}>Update</button>
 					<button className='edit__btn cancel' onClick={handleCancel}>Cancel</button>
 				</div>
 			</div>
@@ -195,8 +233,8 @@ const UpdateRes = () => {
 					<span className='addDesktop'>Add new Source</span>
 					<span className='addMobile'>Add new</span>
 				</button>
-				{ err && 
-					<p className='res__error'>{ err }</p>
+				{ err.createSource && 
+					<p className='res__error'>{ err.createSource }</p>
 				}
 			</div>
 		</main>

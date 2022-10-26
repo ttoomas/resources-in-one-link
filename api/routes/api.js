@@ -6,6 +6,7 @@ import { checkRes } from "../resControllers/checkRes.js";
 import { createSource } from "../sourceControllers/createSource.js";
 import { logoutRes } from "../resControllers/logoutRes.js";
 import { deleteSource } from "../sourceControllers/deleteSource.js";
+import { updateSource } from "../sourceControllers/updateSource.js";
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ router.get('/logoutres', logoutRes);
 
 router.post('/createsource', createSource);
 router.post('/deletesource', deleteSource);
+router.post('/updatesource', updateSource);
 
 
 export default router;
