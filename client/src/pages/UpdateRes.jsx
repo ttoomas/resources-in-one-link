@@ -5,12 +5,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import editIcon from "../imgs/edit.png";
 import deleteIcon from "../imgs/delete.png";
 import textIcon from "../imgs/text.png";
-import { handleEdit, handleCancel, copyRes, handleDeleteSource } from "../helpers/handleUpdates";
+import { handleEdit, copyRes, handleDeleteSource } from "../helpers/handleUpdates";
 import { useState } from 'react';
 
 const UpdateRes = () => {
 	const [sourceName, setSourceName] = useState("");
 	const [sourceType, setSourceType] = useState("text");
+	const [updateSourceType, setUpdateSourceType] = useState("");
 	const [err, setErr] = useState({});
 	const [resourcesId, setResourcesId] = useState("");
 	const [sources, setSources] = useState([]);
@@ -94,12 +95,27 @@ const UpdateRes = () => {
 		navigate('/login');
 	}
 
+	const handleCancel = () => {
+		const resEditBx = document.querySelector('.res__editBx');
+	
+		resEditBx.style.animation = "resEditActiveOut 250ms ease-in-out forwards";
+
+		setErr({});
+	}
+
+	const handleUpdateSourceType = (e) => {
+		setUpdateSourceType(e.target.value);
+	}
+
 	const handleUpdateSource = async (e) =>  {
 		const resEditBx = e.target.parentNode.parentNode;
 		const resEditInput = resEditBx.querySelector('.edit__input');
 		const inputValue = resEditInput.value;
 		const originalInputValue = resEditInput.getAttribute('data-original-content');
 		const sourceId = resEditBx.getAttribute('data-source-id');
+		const originalValueType = resEditBx.getAttribute('data-original-type');
+		console.log(originalValueType);
+		console.log(updateSourceType);
 	
 		if(inputValue.length === 0){
 			setErr({"updateSource": "Please enter some source"});
@@ -107,25 +123,30 @@ const UpdateRes = () => {
 		else if(inputValue.length <= 2){
 			setErr({"updateSource": "Too short, please enter some source"});
 		}
-		else if(inputValue === originalInputValue){
+		else if(inputValue === originalInputValue && originalValueType === updateSourceType){
 			handleCancel();
 		}
 		else{
-			setSources(sources.map(obj => {
-				if(obj.id === parseInt(sourceId)){
-					return {...obj, body: inputValue};
-				}
+			try{
+				await axios({
+					method: "post",
+					url: "/updatesource",
+					data: {"sourceId": sourceId, "sourceContent": inputValue, "sourceType": updateSourceType, "resId": resourcesId}
+				})
 
-				return obj;
-			}))
+				setSources(sources.map(obj => {
+					if(obj.id === parseInt(sourceId)){
+						return {...obj, body: inputValue, type: updateSourceType};
+					}
 
-			handleCancel();
-			
-			axios({
-				method: "post",
-				url: "/updatesource",
-				data: {"sourceId": sourceId, "sourceContent": inputValue}
-			})
+					return obj;
+				}))
+	
+				handleCancel();
+			}
+			catch(err){
+				setErr({"updateSource": err.response.data})
+			}
 		}
 	}
 
@@ -139,8 +160,8 @@ const UpdateRes = () => {
 	}, [sourceName])
 
 
-  return (
-    <main className="main__res">
+	return (
+		<main className="main__res">
 			<div className="res__nav">
 				<div className="res__copyBx">
 					<div className="copy__textBx">
@@ -157,15 +178,16 @@ const UpdateRes = () => {
 				{ sources.map(({ body, type, id }) => {
 					if(type === "link"){
 						let link = "https://" + (body.replace("http://", "").replace("https://", ""));
-
+						let faviconImg = `https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${link}&size=64`;
+						
 						return(
 							<div className='res__content' key={body}>
 								<div className='res__iconBx'>
-									<img src={`https://www.google.com/s2/favicons?domain=${link}&sz=32`} onError={e => {e.currentTarget.src = textIcon}} alt="Icon of your resources" className='res__icon' />
+									<img src={faviconImg} alt="Icon of your resources" className='res__icon' />
 								</div>
 								<a href={link} target="_blank" rel="noreferrer" className='content__text link'>{ body }</a>
 								<div className='content__hover'>
-									<button className="content__iconBx" id='content__edit' onClick={e => handleEdit(e, id)}>
+									<button className="content__iconBx" id='content__edit' onClick={e => handleEdit(e, id, type, {setUpdateSourceType})}>
 										<img src={editIcon} className="content__icon" id='contentIcon__edit' alt="" aria-hidden="true" draggable="false" />
 									</button>
 									<button className="content__iconBx" id='content__delete' onClick={(e) => handleDeleteSource(e, id)}>
@@ -183,7 +205,7 @@ const UpdateRes = () => {
 								</div>
 								<p className='content__text'>{ body }</p>
 								<div className='content__hover'>
-									<button className="content__iconBx" id='content__edit' onClick={e => handleEdit(e, id)}>
+									<button className="content__iconBx" id='content__edit' onClick={e => handleEdit(e, id, type, {setUpdateSourceType})}>
 										<img src={editIcon} className="content__icon" id='contentIcon__edit' alt="" aria-hidden="true" draggable="false" />
 									</button>
 									<button className="content__iconBx" id='content__delete' onClick={(e) => handleDeleteSource(e, id)}>
@@ -201,6 +223,19 @@ const UpdateRes = () => {
 				<div className='edit__inputContainer'>
 					<input type="text" className='edit__input' id='edit__input' placeholder='Update your Source' data-original-content=""/>
 					<label htmlFor="edit__input" className='edit__label'>Update your Source</label>
+				</div>
+				<div className='res__typeBx'>
+					<p className='res__typeText'>What type is it?</p>
+					<div className="res__inputContainer">
+						<div className='res__typeInputBx'>
+							<input type="radio" name='resType' className='res__typeInput' id='resType__link' value="link" checked={updateSourceType === "link"} onChange={handleUpdateSourceType} />
+							<label htmlFor="resType__link" className='res__typeLabel'>Link</label>
+						</div>
+						<div className='res__typeInputBx'>
+							<input type="radio" name='resType' className='res__typeInput' id='resType__text' value="text" checked={updateSourceType === "text"} onChange={handleUpdateSourceType} />
+							<label htmlFor="resType__text" className='res__typeLabel'>Text</label>
+						</div>
+					</div>
 				</div>
 				{ err.updateSource && (
 					<p className='res__editError'>{err.updateSource}</p>
@@ -238,7 +273,7 @@ const UpdateRes = () => {
 				}
 			</div>
 		</main>
-  )
+	)
 }
 
 export default UpdateRes

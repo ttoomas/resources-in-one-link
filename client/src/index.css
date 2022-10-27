@@ -661,13 +661,35 @@ h1,h2,h3,h4,h5,h6,p{
     color: lightcyan;
     background-color: var(--main-bg);
 }
+.res__typeBx{
+    display: flex;
+    align-items: center;
+    margin-left: 22px;
+    margin-top: 12px;
+}
+.res__typeText{
+    font-size: 20px;
+}
+.res__inputContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+    column-gap: 16px;
+}
+.res__typeLabel{
+    column-gap: 9px !important;
+    font-size: 17px;
+}
+
 
 .edit__btnBx{
     display: flex;
     flex-direction: row;
     justify-content: center;
     column-gap: 18px;
-    margin-top: 48px;
+    margin-top: 52px;
 }
 .edit__btn{
     padding: 16px 48px;
@@ -678,7 +700,7 @@ h1,h2,h3,h4,h5,h6,p{
     background-color: var(--main-bg);
     outline: none;
     cursor: pointer;
-    transition: all 160ms ease-in-out;
+    transition: background-color 160ms ease-in-out, color 160ms ease-in-out;
 }
 .edit__btn:hover{
     background-color: lightcyan;
@@ -687,6 +709,7 @@ h1,h2,h3,h4,h5,h6,p{
 .res__editError{
     position: absolute;
     margin-top: 6px;
+    margin-left: 22px;
     font-size: 18px;
     color: var(--err-red);
 }
@@ -778,10 +801,10 @@ h1,h2,h3,h4,h5,h6,p{
 .type__inputBx{
     margin-left: 3px;
 }
-.type__input{
+.type__input, .res__typeInput{
     display: none;
 }
-.type__label{
+.type__label, .res__typeLabel{
     position: relative;
     display: flex;
     flex-direction: row;
@@ -789,14 +812,14 @@ h1,h2,h3,h4,h5,h6,p{
     cursor: pointer;
     column-gap: 11px;
 }
-.type__label::before{
+.type__label::before, .res__typeLabel::before{
     content: '';
     display: block;
     width: 20px;
     height: 20px;
     border: 1px solid lightcyan;
 }
-.type__label::after{
+.type__label::after, .res__typeLabel::after{
     content: '';
     display: block;
     position: absolute;;
@@ -807,7 +830,8 @@ h1,h2,h3,h4,h5,h6,p{
     opacity: 0;
     transition: opacity 170ms linear;
 }
-.type__input:checked + .type__label::after{
+.type__input:checked + .type__label::after,
+.res__typeInput:checked + .res__typeLabel::after{
     opacity: 1;
 }
 .type__addBtn{
@@ -912,6 +936,9 @@ h1,h2,h3,h4,h5,h6,p{
         letter-spacing: 1px;
         word-spacing: 1px;
     }
+    .res__typeBx{
+        margin-left: 20px;
+    }
     .edit__inputContainer{
         margin-top: 144px;
     }
@@ -924,10 +951,25 @@ h1,h2,h3,h4,h5,h6,p{
         font-size: 21px;
         top: -42px;
     }
+    .res__inputContainer{
+        column-gap: 14px;
+        margin-left: 18px;
+    }
+    .res__typeText{
+        font-size: 19px;
+    }
+    .res__typeLabel{
+        font-size: 16px;
+        column-gap: 8px !important;
+    }
     .res__error{
         font-size: 18px;
         bottom: -32px;
         left: 16px;
+    }
+    .res__editError{
+        margin-left: 20px;
+        margin-top: 4px;
     }
 }
 
@@ -1046,8 +1088,22 @@ h1,h2,h3,h4,h5,h6,p{
         font-size: 19px;
         top: -38px;
     }
+    .res__typeBx{
+        margin-left: 16px;
+    }
+    .res__typeText{
+        font-size: 17px;
+    }
+    .res__inputContainer{
+        column-gap: 11px;
+        margin-left: 16px;
+    }
+    .res__typeLabel{
+        column-gap: 6px !important;
+    }
+
     .edit__btnBx{
-        margin-top: 42px;
+        margin-top: 46px;
     }
     .edit__btn{
         padding: 14px 34px;
@@ -1059,7 +1115,8 @@ h1,h2,h3,h4,h5,h6,p{
     }
     .res__editError{
         font-size: 16px;
-        margin-top: 4px;
+        margin-top: 3px;
+        margin-left: 16px;
     }
 }
 
@@ -1115,9 +1172,25 @@ h1,h2,h3,h4,h5,h6,p{
         font-size: 17px;
         top: -34px;
     }
+    .res__typeBx{
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+    .res__typeText{
+        font-size: 15px;
+    }
+    .res__inputContainer{
+        column-gap: 10px;
+        margin-left: 13px;
+    }
+    .res__typeLabel{
+        column-gap: 5px !important;
+        font-size: 15px;
+    }
+
     .edit__btnBx{
         column-gap: 12px;
-        margin-top: 34px;
+        margin-top: 38px;
     }
     .edit__btn{
         padding: 12px 24px;
@@ -1128,6 +1201,7 @@ h1,h2,h3,h4,h5,h6,p{
     }
     .res__editError{
         font-size: 14px;
-        margin-top: 3px;
+        margin-top: 4px;
+        margin-left: 10px;
     }
 }

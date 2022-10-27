@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const handleEdit = (e, id) => {
+export const handleEdit = (e, id, type, {setUpdateSourceType}) => {
   const resContent = e.target.parentNode.parentNode.parentNode;
   const contentText = resContent.querySelector('.content__text').textContent;
   const editInput = document.querySelector('.edit__input');
@@ -9,14 +9,11 @@ export const handleEdit = (e, id) => {
   editInput.value = contentText;
   editInput.setAttribute('data-original-content', contentText);
   resEditBx.setAttribute('data-source-id', id);
+  resEditBx.setAttribute('data-original-type', type);
+
+  setUpdateSourceType(type);
 
   resEditBx.style.animation = "resEditActiveIn 250ms ease-in-out forwards";
-}
-
-export const handleCancel = () => {
-  const resEditBx = document.querySelector('.res__editBx');
-
-  resEditBx.style.animation = "resEditActiveOut 250ms ease-in-out forwards";
 }
 
 export const copyRes = (e, resShortUrl) => {
