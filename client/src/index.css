@@ -1205,3 +1205,205 @@ h1,h2,h3,h4,h5,h6,p{
         margin-left: 10px;
     }
 }
+
+
+/* View section */
+.main__view{
+    color: lightcyan;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+.view__title{
+    text-align: center;
+    font-size: 40px;
+    margin-top: 46px;
+    padding-inline: 26px;
+}
+.view__projectTitle{
+    color: cyan;
+    position: relative;
+    white-space: nowrap;
+    transition: color 150ms ease-in-out;
+}
+.view__projectTitle::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: cyan;
+    z-index: -1;
+    transition: width 200ms ease-in-out;
+}
+.view__projectTitle:hover{
+    color: var(--main-bg);
+}
+.view__projectTitle:hover::before{
+    width: 100%;
+}
+.view__contentBx{
+    display: flex;
+    flex-direction: column;
+    row-gap: 56px;
+    padding-left: 150px;
+    padding-right: 40px;
+    margin: 90px 110px 52px 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.view__contentBx::-webkit-scrollbar{
+    width: 8px;
+}
+.view__contentBx::-webkit-scrollbar-thumb{
+    background-color: lightcyan;
+    border-left: 1px solid var(--main-bg);
+    background-clip: padding-box;
+}
+.view__contentBx::-webkit-scrollbar-thumb:hover{
+    border-left: 0px solid var(--main-bg);
+}
+.view__content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 24px;
+}
+.view__iconBx{
+    display: flex;
+}
+.view__icon{
+    width: 50px;
+    transition: transform 175ms ease-in-out;
+}
+.view__iconBx:hover .view__icon{
+    transform: translateX(5px);
+}
+.view__text{
+    font-size: 20px;
+    position: relative;
+}
+.view__text.link{
+    color: lightcyan;
+    text-decoration: none;
+    text-shadow: 3px 3px 7px lightcyan;
+    transition: text-shadow 200ms ease-in-out;
+}
+.view__text.link:hover{
+    text-shadow: none;
+}
+
+@media only screen and (max-width: 87em){
+    .view__contentBx{
+        row-gap: 50px;
+        padding-left: 112px;
+        padding-right: 42px;
+        margin: 90px 70px 52px 0;
+    }
+    .view__text{
+        font-size: 19px ;
+    }
+}
+
+@media only screen and (max-width: 72em){
+    .view__title{
+        font-size: 38px;
+        line-height: 50px;
+        margin-top: 38px;
+    }
+    .view__contentBx{
+        padding-left: 80px;
+        padding-right: 27px;
+        margin: 74px 53px 44px 0;
+    }
+    .view__contentBx::-webkit-scrollbar{
+        width: 6px;
+    }
+    .view__content{
+        column-gap: 20px;
+    }
+    .view__icon{
+        width: 48px;
+    }
+    .view__text{
+        font-size: 18px;
+    }
+}
+
+@media only screen and (max-width: 50em){
+    .view__title{
+        font-size: 34px;
+        line-height: 42px;
+        margin-top: 28px;
+        padding-inline: 14px;
+    }
+    .view__contentBx{
+        row-gap: 30px;
+        padding-left: 32px;
+        padding-right: 16px;
+        margin: 50px 14px 40px 0;
+    }
+    .view__icon{
+        width: 42px;
+    }
+    .view__iconBx:hover .view__icon{
+        transform: translateX(2px);
+    }
+    .view__text{
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 35.5em){
+    .view__title{
+        font-size: 28px;
+        line-height: 32px;
+        margin-top: 18px;
+        padding-inline: 8px;
+    }
+    .view__contentBx{
+        row-gap: 20px;
+        padding-left: 14px;
+        padding-right: 8px;
+        margin: 34px 8px 24px 0;
+    }
+    .view__contentBx::-webkit-scrollbar{
+        width: 4px;
+    }
+    .view__content{
+        column-gap: 16px;
+    }
+    .view__icon{
+        width: 36px;
+    }
+    .view__text{
+        font-size: 15px;
+        line-height: 22px;
+    }
+}
+
+@media only screen and (max-width: 26em){
+    .view__title{
+        font-size: 24px;
+        line-height: 29px;
+        margin-top: 14px;
+        padding-inline: 6px;
+    }
+    .view__contentBx{
+        row-gap: 16px;
+        padding-left: 10px;
+        margin: 26px 6px 16px 0;
+    }
+    .view__content{
+        column-gap: 13px;
+    }
+    .view__icon{
+        width: 32px;
+    }
+    .view__text{
+        font-size: 14px;
+        line-height: 20px;
+    }
+}

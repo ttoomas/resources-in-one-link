@@ -183,7 +183,7 @@ const UpdateRes = () => {
 						return(
 							<div className='res__content' key={body}>
 								<div className='res__iconBx'>
-									<img src={faviconImg} alt="Icon of your resources" className='res__icon' />
+									<img src={faviconImg} alt="Icon of your source" className='res__icon' />
 								</div>
 								<a href={link} target="_blank" rel="noreferrer" className='content__text link'>{ body }</a>
 								<div className='content__hover'>
@@ -201,7 +201,7 @@ const UpdateRes = () => {
 						return(
 							<div className='res__content' key={body}>
 								<div className='res__iconBx'>
-									<img src={textIcon} alt="Icon of your resources" className='res__icon' />
+									<img src={textIcon} alt="Icon of your source" className='res__icon' />
 								</div>
 								<p className='content__text'>{ body }</p>
 								<div className='content__hover'>

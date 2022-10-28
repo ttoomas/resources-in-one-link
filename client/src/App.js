@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CreateRes from "./pages/CreateRes";
 import LoginRes from "./pages/LoginRes";
 import UpdateRes from "./pages/UpdateRes";
+import ViewRes from "./pages/ViewRes";
 
 function App() {
   const router = createBrowserRouter([
@@ -16,6 +17,10 @@ function App() {
     {
       path: "/update/resources/:slug",
       element: <UpdateRes/>
+    },
+    {
+      path: "/resources/:slug",
+      element: <ViewRes/>
     }
   ])
 
