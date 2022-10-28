@@ -1407,3 +1407,204 @@ h1,h2,h3,h4,h5,h6,p{
         line-height: 20px;
     }
 }
+
+/* View page - res not exist error page */
+.viError, .exError{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: lightcyan;
+    height: 100%;
+    justify-content: center;
+}
+.viError__statusBx, .exError__statusBx{
+    display: flex;
+    margin-top: -200px;
+    margin-bottom: 32px;
+}
+.viError__status, .exError__status{
+    font-size: 86px;
+    color: var(--err-red);
+    transition: transform 200ms ease-in-out;
+}
+.viError__statusBx:hover .viError__status, .exError__statusBx:hover .exError__status{
+    transform: translate(50px, -40px) rotate(-18deg);
+}
+.viError__info, .exError__info{
+    text-align: center;
+    margin-bottom: 26px;
+    padding-inline: 28px;
+    font-size: 40px;
+    line-height: 46px;
+}
+.viError__create, .exError__create{
+    font-size: 34px;
+}
+.viError__createLink, .exError__createLink{
+    position: relative;
+    color: var(--err-red);
+    text-decoration: underline wavy 3px lightcyan;
+    text-underline-offset: 10px;
+    transition: color 200ms ease-in-out;
+    padding-inline: 5px;
+    margin-inline: -2px;
+}
+.viError__createLink::before, .exError__createLink::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: lightcyan;
+    z-index: -1;
+    transition: width 200ms ease-in-out;
+}
+.viError__createLink::after, .exError__createLink::after{
+    content: '';
+    position: absolute;
+    left: -1px;
+    bottom: -7px;
+    width: 0%;
+    height: 20%;
+    background-color: var(--main-bg);
+    z-index: 0;
+    pointer-events: none;
+    transition: width 200ms ease-in-out;
+}
+.viError__createLink:hover::before, .exError__createLink:hover::before{
+    width: 100%;
+}
+.viError__createLink:hover::after, .exError__createLink:hover::after{
+    width: 101%;
+}
+.viError__createLink:hover, .exError__createLink:hover{
+    color: var(--main-bg);
+}
+
+@media only screen and (max-width: 45.5em){
+    .viError__statusBx, .exError__statusBx{
+        margin-top: -100px;
+        margin-bottom: 34px;
+    }
+    .viError__status, .exError__status{
+        font-size: 74px;
+    }
+    .viError__info, .exError__info{
+        margin-bottom: 28px;
+        padding-inline: 14px;
+        font-size: 32px;
+        line-height: 40px;
+    }
+    .viError__create, .exError__create{
+        font-size: 29px;
+    }
+    .viError__createLink, .exError__createLink{
+        text-underline-offset: 8px;
+    }
+}
+
+@media only screen and (max-width: 29em){
+    .viError, .exError{
+        justify-content: flex-start;
+        padding-block: 38px;
+    }
+    .viError__statusBx, .exError__statusBx{
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+    .viError__status, .exError__status{
+        font-size: 66px;
+    }
+    .viError__statusBx:hover .viError__status, .exError__statusBx:hover .exError__status{
+        transform: translate(30px, -20px) rotate(-15deg);
+    }
+    .viError__info, .exError__info{
+        margin-bottom: 28px;
+        padding-inline: 6px;
+        font-size: 27px;
+        line-height: 33px;
+    }
+    .viError__create, .exError__create{
+        text-align: center;
+        font-size: 25px;
+        line-height: 44px;
+    }
+    .viError__createLink, .exError__createLink{
+        text-underline-offset: 7px;
+    }
+}
+
+/* View page - res not exist error page */
+.exError__status{
+    color: cyan;
+}
+.exError__createLink{
+    color: cyan;
+    padding-inline: 6px;
+    margin-inline: 2px;
+    white-space: nowrap;
+}
+.exError__info{
+    padding-inline: 136px;
+    line-height: 52px;
+    margin-bottom: 40px;
+}
+.exError__projectInfo{
+    color: cyan;
+    position: relative;
+    padding-inline: 4px;
+    margin-inline: -2px;
+    transition: color 200ms ease-in-out;
+    white-space: nowrap;
+}
+.exError__projectInfo::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0%;
+    height: 100%;
+    background-color: lightcyan;
+    z-index: -1;
+    transition: width 200ms ease-in-out;
+}
+.exError__projectInfo:hover::before{
+    width: 100%;
+}
+.exError__projectInfo:hover{
+    color: var(--main-bg);
+}
+
+@media only screen and (max-width: 72em){
+    .exError__info{
+        padding-inline: 50px;
+    }
+}
+
+@media only screen and (max-width: 52em){
+    .exError__info{
+        font-size: 34px;
+        line-height: 47px;
+        padding-inline: 22px;
+    }
+    .exError__create{
+        font-size: 30px;
+        text-align: center;
+        line-height: 46px;
+        padding-inline: 14px;
+    }
+}
+
+@media only screen and (max-width: 29em){
+    .exError__info{
+        font-size: 26px;
+        line-height: 40px;
+        padding-inline: 12px;
+    }
+    .exError__create{
+        font-size: 29px;
+        line-height: 43px;
+        padding-inline: 6px;
+    }
+}
