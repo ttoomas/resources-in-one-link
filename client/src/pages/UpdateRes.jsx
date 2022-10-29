@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import editIcon from "../imgs/edit.png";
 import deleteIcon from "../imgs/delete.png";
 import textIcon from "../imgs/text.png";
-import { handleEdit, copyRes, handleDeleteSource } from "../helpers/handleUpdates";
+import { handleEdit, copyRes, handleDeleteSource, handleSourceType, handleCancel, handleUpdateSourceType } from "../helpers/handleUpdates";
 import { useState } from 'react';
 
 const UpdateRes = () => {
@@ -41,11 +41,6 @@ const UpdateRes = () => {
 		getResources();
 		// eslint-disable-next-line
 	}, []);
-
-
-	const handleSourceType = (e) => {
-		setSourceType(e.target.value);
-	}
 
 	const handleAddRes = (e) => {
 		setErr({});
@@ -95,18 +90,6 @@ const UpdateRes = () => {
 		navigate('/login');
 	}
 
-	const handleCancel = () => {
-		const resEditBx = document.querySelector('.res__editBx');
-	
-		resEditBx.style.animation = "resEditActiveOut 250ms ease-in-out forwards";
-
-		setErr({});
-	}
-
-	const handleUpdateSourceType = (e) => {
-		setUpdateSourceType(e.target.value);
-	}
-
 	const handleUpdateSource = async (e) =>  {
 		const resEditBx = e.target.parentNode.parentNode;
 		const resEditInput = resEditBx.querySelector('.edit__input');
@@ -114,8 +97,6 @@ const UpdateRes = () => {
 		const originalInputValue = resEditInput.getAttribute('data-original-content');
 		const sourceId = resEditBx.getAttribute('data-source-id');
 		const originalValueType = resEditBx.getAttribute('data-original-type');
-		console.log(originalValueType);
-		console.log(updateSourceType);
 	
 		if(inputValue.length === 0){
 			setErr({"updateSource": "Please enter some source"});
@@ -124,7 +105,7 @@ const UpdateRes = () => {
 			setErr({"updateSource": "Too short, please enter some source"});
 		}
 		else if(inputValue === originalInputValue && originalValueType === updateSourceType){
-			handleCancel();
+			handleCancel({setErr});
 		}
 		else{
 			try{
@@ -142,17 +123,13 @@ const UpdateRes = () => {
 					return obj;
 				}))
 	
-				handleCancel();
+				handleCancel({setErr});
 			}
 			catch(err){
 				setErr({"updateSource": err.response.data})
 			}
 		}
 	}
-
-	useEffect(() => {
-		console.log(sources);
-	}, [sources])
 
 	useEffect(() => {
 		let isSourceNameLink = /http|www.|..com|..cz/.test(sourceName);
@@ -185,7 +162,9 @@ const UpdateRes = () => {
 								<div className='res__iconBx'>
 									<img src={faviconImg} alt="Icon of your source" className='res__icon' />
 								</div>
-								<a href={link} target="_blank" rel="noreferrer" className='content__text link'>{ body }</a>
+								<div className='content__textBx'>
+									<a href={link} target="_blank" rel="noreferrer" className='content__text link'>{ body }</a>
+								</div>
 								<div className='content__hover'>
 									<button className="content__iconBx" id='content__edit' onClick={e => handleEdit(e, id, type, {setUpdateSourceType})}>
 										<img src={editIcon} className="content__icon" id='contentIcon__edit' alt="" aria-hidden="true" draggable="false" />
@@ -203,7 +182,9 @@ const UpdateRes = () => {
 								<div className='res__iconBx'>
 									<img src={textIcon} alt="Icon of your source" className='res__icon' />
 								</div>
-								<p className='content__text'>{ body }</p>
+								<div className='content__textBx'>
+									<p className='content__text'>{ body }</p>
+								</div>
 								<div className='content__hover'>
 									<button className="content__iconBx" id='content__edit' onClick={e => handleEdit(e, id, type, {setUpdateSourceType})}>
 										<img src={editIcon} className="content__icon" id='contentIcon__edit' alt="" aria-hidden="true" draggable="false" />
@@ -228,11 +209,11 @@ const UpdateRes = () => {
 					<p className='res__typeText'>What type is it?</p>
 					<div className="res__inputContainer">
 						<div className='res__typeInputBx'>
-							<input type="radio" name='resType' className='res__typeInput' id='resType__link' value="link" checked={updateSourceType === "link"} onChange={handleUpdateSourceType} />
+							<input type="radio" name='resType' className='res__typeInput' id='resType__link' value="link" checked={updateSourceType === "link"} onChange={(e) => handleUpdateSourceType(e, {setUpdateSourceType})} />
 							<label htmlFor="resType__link" className='res__typeLabel'>Link</label>
 						</div>
 						<div className='res__typeInputBx'>
-							<input type="radio" name='resType' className='res__typeInput' id='resType__text' value="text" checked={updateSourceType === "text"} onChange={handleUpdateSourceType} />
+							<input type="radio" name='resType' className='res__typeInput' id='resType__text' value="text" checked={updateSourceType === "text"} onChange={(e) => handleUpdateSourceType(e, {setUpdateSourceType})} />
 							<label htmlFor="resType__text" className='res__typeLabel'>Text</label>
 						</div>
 					</div>
@@ -242,7 +223,7 @@ const UpdateRes = () => {
 				) }
 				<div className="edit__btnBx">
 					<button className='edit__btn edit' onClick={handleUpdateSource}>Update</button>
-					<button className='edit__btn cancel' onClick={handleCancel}>Cancel</button>
+					<button className='edit__btn cancel' onClick={() => handleCancel({setErr})}>Cancel</button>
 				</div>
 			</div>
 
@@ -255,12 +236,12 @@ const UpdateRes = () => {
 					<p className='type__text'>What type is it?</p>
 
 					<div className="type__inputBx">
-						<input type="radio" name='type' className='type__input' id="type__link" value="link" checked={sourceType === 'link'} onChange={handleSourceType} />
+						<input type="radio" name='type' className='type__input' id="type__link" value="link" checked={sourceType === 'link'} onChange={(e) => handleSourceType(e, {setSourceType})} />
 						<label htmlFor="type__link" className='type__label'>Link</label>
 					</div>
 
 					<div className="type__inputBx">
-						<input type="radio" name='type' className='type__input' id="type__text" value="text" checked={sourceType === 'text'} onChange={handleSourceType} />
+						<input type="radio" name='type' className='type__input' id="type__text" value="text" checked={sourceType === 'text'} onChange={(e) => handleSourceType(e, {setSourceType})} />
 						<label htmlFor="type__text" className='type__label'>Text</label>
 					</div>
 				</div>

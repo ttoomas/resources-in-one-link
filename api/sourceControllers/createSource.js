@@ -25,7 +25,7 @@ export const createSource = (req, res) => {
             
                 db.query(query, [values], (err, data) => {
                     if(err){
-                        console.log(err);
+                        res.status(400).send('db error');
                     }
                     else{
                         let sourceId = data.insertId.toString();

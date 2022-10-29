@@ -11,7 +11,7 @@ export const checkRes = (req, res) => {
     else{
         jwt.verify(jwtToken, process.env.LOGIN_JWT_KEY, (err, decoded) => {
             if(err){
-                console.log('Wrong token');
+                res.status(400).send('You are not authorized');
             }
             else{
                 const jwtSlug = decoded.name.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
@@ -28,7 +28,7 @@ export const checkRes = (req, res) => {
                         }
                         else{
                             if(data[0].name !== decoded.name || data[0].unique_id !== decoded.uid){
-                                console.log("there is some error");
+                                res.status(400).send('You are not authorized');
                             }
                             else{
                                 getResources(res, data[0].id, data[0].short_url);
@@ -46,7 +46,7 @@ function getResources(res, resourcesId, resourcesShortUrl){
 
     db.query(query, [resourcesId], (err, data) => {
         if(err){
-            console.log(err);
+            res.status(400).send('db error');
         }
         else{
             const result = data.map(({body, type, id}) => ({body, type, id}));

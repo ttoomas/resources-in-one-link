@@ -56,13 +56,9 @@ const CreateRes = () => {
             data: {"resName": resNameVal, "resPassword": resPasswordVal}
           });
 
-          console.log(createRes);
-
           navigate(`/update/resources/${createRes.data.slug}`);
         }
         catch(err){
-          console.log(err.response.data);
-
           const createInputBxName = document.querySelector('.create__form.name');
           const createInputBxPassword = document.querySelector('.create__form.password');
 

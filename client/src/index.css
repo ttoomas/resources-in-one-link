@@ -264,7 +264,7 @@ h1,h2,h3,h4,h5,h6,p{
 
 @media only screen and (max-width: 36em){
     .main__create, .main__login, .main__res{
-        padding: 0 20px;
+        padding: 0 20px 22px 20px;
         overflow-x: hidden;
     }
     .create__login, .login__create{
@@ -305,10 +305,24 @@ h1,h2,h3,h4,h5,h6,p{
     }
 }
 
-/* Height medias */
-@media only screen and (max-height: 607px){
+@media only screen and (max-width: 28em){
+    .main__create{
+        padding: 0 18px 20px 18px;
+    }
+    .create__title{
+        margin-top: 54px;
+        padding-inline: 0;
+    }
     .create__formBx{
-        margin-top: 104px;
+        margin-top: 44px;
+    }
+    .create__label{
+        font-size: 16px;
+        left: 8px;
+    }
+    .create__enterBtn{
+        padding: 18px 22px;
+        font-size: 17px;
     }
 }
 
@@ -394,7 +408,7 @@ h1,h2,h3,h4,h5,h6,p{
 
 @media only screen and (max-width: 36em){
     .main__login{
-        padding: 0 24px;
+        padding: 0 24px 74px 24px;
     }
     .login__title{
         font-size: 34px;
@@ -430,6 +444,17 @@ h1,h2,h3,h4,h5,h6,p{
         font-size: 19px;
         padding: 14px 0;
         margin-top: 46px;
+    }
+}
+
+@media only screen and (max-width: 26.5em){
+    .login__title{
+        font-size: 32px;
+        line-height: 42px;
+        margin-top: 46px;
+    }
+    .login__formContainer{
+        margin-top: 52px;
     }
 }
 
@@ -532,6 +557,13 @@ h1,h2,h3,h4,h5,h6,p{
 .res__icon{
     width: 36px;
 }
+.content__textBx{
+    display: flex;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-right: 28px;
+}
 .content__text{
     position: relative;
     width: 100%;
@@ -540,7 +572,7 @@ h1,h2,h3,h4,h5,h6,p{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-right: 28px;
+    width: max-content;
 }
 .content__text.link{
     color: lightcyan;
@@ -552,7 +584,7 @@ h1,h2,h3,h4,h5,h6,p{
 .content__text.link:hover{
     text-shadow: 2px 1px 8px lightcyan;
 }
-.content__text::before{
+.content__textBx::before{
     content: '';
     display: block;
     position: absolute;
@@ -562,6 +594,7 @@ h1,h2,h3,h4,h5,h6,p{
     height: 100%;
     background: linear-gradient(to right, transparent 5%, var(--main-bg) 102%);
     pointer-events: none;
+    z-index: 999;
 }
 .content__hover{
     margin-left: auto;
@@ -889,6 +922,8 @@ h1,h2,h3,h4,h5,h6,p{
     }
     .content__text{
         font-size: 17px;
+    }
+    .content__textBx{
         margin-right: 18px;
     }
     .content__hover{
@@ -1001,6 +1036,8 @@ h1,h2,h3,h4,h5,h6,p{
     }
     .content__text{
         font-size: 16px;
+    }
+    .content__textBx{
         margin-right: 12px;
     }
     .content__text.link{
@@ -1212,8 +1249,9 @@ h1,h2,h3,h4,h5,h6,p{
     color: lightcyan;
     display: flex;
     flex-direction: column;
+}
+.main__view.viewMaxHeight{
     height: 100vh;
-    overflow: hidden;
 }
 .view__title{
     text-align: center;
@@ -1394,7 +1432,7 @@ h1,h2,h3,h4,h5,h6,p{
     .view__contentBx{
         row-gap: 16px;
         padding-left: 10px;
-        margin: 26px 6px 16px 0;
+        margin: 34px 6px 16px 0;
     }
     .view__content{
         column-gap: 13px;
@@ -1414,8 +1452,9 @@ h1,h2,h3,h4,h5,h6,p{
     flex-direction: column;
     align-items: center;
     color: lightcyan;
-    height: 100%;
+    min-height: 100vh;
     justify-content: center;
+    padding-bottom: 40px;
 }
 .viError__statusBx, .exError__statusBx{
     display: flex;

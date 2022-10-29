@@ -7,7 +7,7 @@ export const getSources = (req, res) => {
 
     db.query(query, [path], (err, data) => {
         if(err){
-            console.log('db error');
+            res.status(400).send('db error');
         }
         else if(data.length === 0){
             res.status(400).send({"errorId": 1}) // resources do not exist
@@ -19,7 +19,7 @@ export const getSources = (req, res) => {
 
             db.query(query, [resId], (err, data) => {
                 if(err){
-                    console.log('db error');
+                    res.status(400).send('db error');
                 }
                 else if(data.length === 0){
                     res.status(400).send({"errorId": 2, "resName": resName}) // Resources exist, but there is no link

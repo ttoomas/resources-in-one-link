@@ -42,3 +42,19 @@ export const handleDeleteSource = (e, id) => {
     data: {id}
   })
 }
+
+export const handleSourceType = (e, {setSourceType}) => {
+  setSourceType(e.target.value);
+}
+
+export const handleCancel = ({setErr}) => {
+  const resEditBx = document.querySelector('.res__editBx');
+
+  resEditBx.style.animation = "resEditActiveOut 250ms ease-in-out forwards";
+
+  setErr({});
+}
+
+export const handleUpdateSourceType = (e, {setUpdateSourceType}) => {
+  setUpdateSourceType(e.target.value);
+}

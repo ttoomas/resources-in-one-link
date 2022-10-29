@@ -48,7 +48,6 @@ export const createRes = (req, res) => {
             db.query(query, [values], (err, data) => {
                 if(err){
                     res.status(400).send('db error');
-                    console.log(err);
                 }
                 else{
                     res.cookie("access_token", jwtToken, {
