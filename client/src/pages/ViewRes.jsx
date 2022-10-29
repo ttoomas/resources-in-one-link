@@ -11,6 +11,10 @@ const ViewRes = () => {
   const [sources, setSources] = useState([]);
   const resTitle = useRef(null);
   const [err, setErr] = useState("");
+
+  useEffect(() => {
+    document.title = "View Resources List";
+  }, [])
   
   async function getSources(){
     try{

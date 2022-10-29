@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,6 +10,10 @@ const LoginRes = () => {
   const resName = useRef(null);
   const resPassword = useRef(null);
   const [err, setErr] = useState([]);
+
+  useEffect(() => {
+    document.title = "Login to Resources list";
+  }, [])
 
   const showPassword = () => {
     const createEye = document.querySelector('.login__eyeOff');

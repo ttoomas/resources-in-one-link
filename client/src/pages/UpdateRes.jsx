@@ -17,6 +17,10 @@ const UpdateRes = () => {
 	const [sources, setSources] = useState([]);
 	const [resShortUrl, setResShortUrl] = useState("github.com/ttoomas");
 
+	useEffect(() => {
+    document.title = "Update Sources";
+  }, [])
+
 	const navigate = useNavigate();
 	const currentSlug = window.location.pathname.split('/').pop();
 

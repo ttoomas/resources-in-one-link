@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import eyeOn from "../imgs/eye.png";
@@ -9,6 +9,10 @@ const CreateRes = () => {
   const resPassword = useRef(null);
   const [err, setErr] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = "Create Resouces List";
+  }, [])
 
   const handlePassword = () => {
     const resNameVal = resName.current.value;

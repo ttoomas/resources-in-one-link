@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const CustomError = () => {
+  useEffect(() => {
+    document.title = "404 | Resouces not found";
+  }, [])
+
   return (
     <main className="main__view">
       <div className='viError'>
