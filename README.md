@@ -3,7 +3,7 @@
 ### The purpose of this application is to store all the resources that were used in the creation of your project
 ---
 ## Deployment
-- ### [Live Page](https://resources-in-one-link.herokuapp.com/)
+- ## Heroku's free plan has been disabled, so I'm looking for an alternative
 - ### [Github Repository](https://github.com/ttoomas/resources-in-one-link)
 ## What this app does?
     - Create new resources list
