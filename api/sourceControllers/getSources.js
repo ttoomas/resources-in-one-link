@@ -34,4 +34,6 @@ export const getSources = (req, res) => {
             })
         }
     })
+
+    db.end();
 }

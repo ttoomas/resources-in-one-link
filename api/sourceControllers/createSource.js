@@ -36,4 +36,5 @@ export const createSource = (req, res) => {
         }
     })
 
+    db.end();
 }

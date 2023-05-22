@@ -37,5 +37,7 @@ export const updateSource = (req, res) => {
                 }
             })
         }
-    })   
+    })
+
+    db.end();
 }

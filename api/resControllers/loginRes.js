@@ -36,4 +36,6 @@ export const loginRes = (req, res) => {
             }
         }
     })
+
+    db.end();
 }

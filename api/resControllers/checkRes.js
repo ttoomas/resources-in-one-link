@@ -35,6 +35,8 @@ export const checkRes = (req, res) => {
                             }
                         }
                     })
+
+                    db.end();
                 }
             }
         })
@@ -55,4 +57,6 @@ function getResources(res, resourcesId, resourcesShortUrl){
             res.status(200).send(finalResult);
         }
     })
+
+    db.end();
 }

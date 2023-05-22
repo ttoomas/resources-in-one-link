@@ -13,4 +13,6 @@ export const deleteSource = (req, res) => {
             res.status(200).send('Source deleted successfully');
         }
     })
+
+    db.end();
 }

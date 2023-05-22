@@ -60,4 +60,6 @@ export const createRes = (req, res) => {
             })
         }
     })
+
+    db.end();
 }
