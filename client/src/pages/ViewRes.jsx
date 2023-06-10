@@ -20,6 +20,7 @@ const ViewRes = () => {
     try{
       const newSources = await axios({
         method: "post",
+        baseURL: process.env.REACT_APP_BACKEND_URL,
         url: "/getSources",
         data: {path}
       })

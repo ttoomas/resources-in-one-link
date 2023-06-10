@@ -29,6 +29,7 @@ const UpdateRes = () => {
 			try{
 				const getRes = await axios({
 					method: 'post',
+					baseURL: process.env.REACT_APP_BACKEND_URL,
 					url: "/checkres",
 					data: {"currentSlug": currentSlug}
 				});
@@ -60,6 +61,7 @@ const UpdateRes = () => {
 				try{
 					const sourceIdRes = await axios({
 						method: "post",
+						baseURL: process.env.REACT_APP_BACKEND_URL,
 						url: "/createsource",
 						data: {"sourceName": sourceName, "sourceType": sourceType, "resourcesId": resourcesId}
 					});
@@ -88,6 +90,7 @@ const UpdateRes = () => {
 	const resLogout = async () => {
 		await axios({
 			method: "get",
+			baseURL: process.env.REACT_APP_BACKEND_URL,
 			url: "/logoutres"
 		});
 	
@@ -115,6 +118,7 @@ const UpdateRes = () => {
 			try{
 				await axios({
 					method: "post",
+					baseURL: process.env.REACT_APP_BACKEND_URL,
 					url: "/updatesource",
 					data: {"sourceId": sourceId, "sourceContent": inputValue, "sourceType": updateSourceType, "resId": resourcesId}
 				})

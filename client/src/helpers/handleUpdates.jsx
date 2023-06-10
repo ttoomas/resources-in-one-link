@@ -38,6 +38,7 @@ export const handleDeleteSource = (e, id) => {
 
   axios({
     method: "post",
+    baseURL: process.env.REACT_APP_BACKEND_URL,
     url: "/deletesource",
     data: {id}
   })

@@ -48,6 +48,7 @@ const LoginRes = () => {
         try{
           const slug = await axios({
             method: "post",
+            baseURL: process.env.REACT_APP_BACKEND_URL,
             url: "/loginres",
             data: {"resName": resNameVal, "resPassword": resPasswordVal}
           });

@@ -56,6 +56,7 @@ const CreateRes = () => {
         try{
           const createRes = await axios({
             method: "post",
+            baseURL: process.env.REACT_APP_BACKEND_URL,
             url: "/createres",
             data: {"resName": resNameVal, "resPassword": resPasswordVal}
           });
